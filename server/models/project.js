@@ -52,9 +52,7 @@ module.exports.addProject = function (project, callback) {
     // id: project.id,
     title: project.title,
     description: project.description,
-    sections: [{
-      tasks: []
-    }],
+    sections: [],
     state: "inprogress",
   }
   Project.create(json, callback);

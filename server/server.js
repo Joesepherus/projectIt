@@ -119,7 +119,9 @@ app.put('/api/project/:id', function (req, res) {
 app.put('/api/project/removed/:id', function (req, res) {
   var id = req.params.id;
   var project = req.body;
+  console.log(id);
 
+  console.log(project);
   Project.removeProject(id, project, {},
     function (err, project) {
       if (err) {
