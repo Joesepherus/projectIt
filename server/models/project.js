@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var schema = mongoose.Schema({
   id: {
-    type: String,
+    type: Number,
   },
   title: {
     type: String,
@@ -11,14 +11,7 @@ var schema = mongoose.Schema({
     type: String,
   },
   sections: {
-    type: [{
-      description: String,
-      tasks: {
-        type: [{
-          description: String
-        }]
-      }
-    }]
+    type: [],
   },
   state: {
     type: String,
@@ -49,10 +42,9 @@ module.exports.getProjectById = function (projectId, callback) {
 
 module.exports.addProject = function (project, callback) {
   var json = {
-    // id: project.id,
+    id: project.id,
     title: project.title,
     description: project.description,
-    sections: [],
     state: "inprogress",
   }
   Project.create(json, callback);
