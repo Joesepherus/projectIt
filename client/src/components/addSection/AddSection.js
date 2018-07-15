@@ -1,32 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import './AddSection.css'
+import { Card, Input } from 'semantic-ui-react'
 
 class AddSection extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      description: ''
+      title: ''
     }
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    console.log(this.props.project);
-    let newProject = Object.assign({}, this.props.project);
-    newProject.sections.push({ description: this.state.description });
-    console.log(newProject);
-    axios.put("/api/project/" + this.props.project._id, newProject)
-      .then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
+    if (this.state.title !== '') {
+      this.props.addNewSection(this.state.title, this.props.project.id, this.props.project.sections.length);
+    }
   }
 
-  changeDescription = (e) => {
+  changeTitle = (e) => {
     this.setState({
-      description: e.target.value
+      title: e.target.value
     })
   }
 
@@ -39,18 +32,21 @@ class AddSection extends Component {
   }
 
   render() {
+    console.log(this.props.project);
     return (
       <div className='addSection'>
-        <input
-          type="text"
-          name="description"
-          placeholder="section description"
-          value={this.state.description}
-          onChange={this.handleChange.bind(this, this.changeDescription)} />
-        <button
-          onClick={this.handleSubmit.bind(this)}>
-          Submit
-          </button>
+        <Card>
+          <Card.Content>
+            <Input
+              type="text"
+              name="title"
+              placeholder="title"
+              value={this.state.title}
+              onChange={this.handleChange.bind(this, this.changeTitle)}
+              onBlur={this.handleSubmit.bind(this)}
+            />
+          </Card.Content>
+        </Card>
       </div>
     )
   }

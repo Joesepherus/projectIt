@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types' //ES6
-
-
 import './HomeController.css'
-import AllProjects from '../allProjects/AllProjects';
+import AllProjects from '../AllProjects/AllProjects';
 
 class HomeController extends Component {
   constructor(props) {
@@ -16,8 +13,11 @@ class HomeController extends Component {
   render() {
     return (
       <AllProjects
-        projects={this.props.projects}
+        sections={this.props.sections}
         selectProject={this.props.selectProject}
+        removeProject={this.props.removeProject}
+        addNewProject={this.props.addNewProject}
+        history={this.props.history}
       />
     )
   }

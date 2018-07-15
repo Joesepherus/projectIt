@@ -1,4 +1,10 @@
-.component-allprojects {
-    background-color: #fdefde;
-    color: #321321;
-}
+/* Coolors Exported Palette - coolors.co/1e3231-00a878-437f97-6f1a07-d8f1a0 */
+/* HSL */
+/* RGB */
+.allProjects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px 20px 0px 20px;
+  background: linear-gradient(#437f97, #6f1a07);
+  min-height: 100vh; }

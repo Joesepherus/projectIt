@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import HomeController from './components/homeController/HomeController';
 import { Switch, Route } from 'react-router-dom';
 import LoginController from './components/loginController/LoginController';
 import AddProjectController from './components/addProjectController/AddProjectController';
 import ProjectDetail from './components/projectDetail/ProjectDetail';
-import history from './history';
 import axios from 'axios';
+import TasksOrderedByDate from './components/TasksOrderedByDate/TasksOrderedByDate';
+import TasksOrderedByDateController from './components/TasksOrderedByDateController/TasksOrderedByDateController';
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      sections: [],
+      selectedProject: '',
       projects: [{
         title: 'project1',
         description: 'lplp',
@@ -28,48 +30,106 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    fetch('/api/project')
-      .then((response) => response.json())
-      .then(projects => {
-        this.setState({
-          projectsNumber: projects.length + 1
-        })
-        this.setState({
-          projects: projects
-        })
-      })
-  }
 
   selectProject = (project) => {
-    this.setState({
-      selectedProject: project
-    });
-    console.log(this.props.history);
+    let self = this;
+    console.log(project);
+    axios.put('/api/project/' + project._id, project)
+      .then(function (response) {
+        console.log(response.data)
+        self.setState({
+          selectedProject: response.data
+        })
+        self.props.history.push('/project');
+
+      })
+      .catch(function (error) {
+        console.log(error);
+
+      })
+
   }
 
-  addNewTask = (section, section_id) => {
+  addNewTask = (title, sectionId, taskId) => {
+    console.log('!==============');
+
+    axios.post("/api/task/", {
+      title: title,
+      sectionId: sectionId,
+      id: taskId
+    })
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    this.selectProject(this.state.selectedProject);
+  }
+
+
+  addNewSection = (title, projectId, sectionId) => {
+    console.log(sectionId);
+    axios.post("/api/section/", {
+      title: title,
+      projectId: projectId,
+      id: sectionId
+    })
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    this.selectProject(this.state.selectedProject);
+  }
+
+  removeSection = (sectionId) => {
     let newProject = Object.assign({}, this.state.selectedProject);
-    newProject.sections[section_id] = section;
+    newProject.sections.splice(sectionId, 1);
     axios.put("/api/project/" + this.state.selectedProject._id, newProject)
-    .then(function (response) {
-      console.log(response);
-    }).catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    this.getAllProjects();
+  }
+
+  removeTask = (taskId, sectionId) => {
+    let newProject = Object.assign({}, this.state.selectedProject);
+    newProject.sections[sectionId].tasks.splice(taskId, 1);
+    axios.put("/api/project/" + this.state.selectedProject._id, newProject)
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    this.getAllProjects();
+  }
+
+  completeTask = (task) => {
+    axios.put("/api/task/completed/" + task._id, task)
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    this.getAllProjects();
   }
 
   render() {
-    console.log(this.state.selectedProject);
+    console.log(this.state.sections);
 
     return (
       <div className="App">
         <Switch>
           <Route exact path='/' render={(props) =>
             <HomeController
-              projects={this.state.projects}
               selectedProject={this.props.selectedProject}
+              sections={this.state.sections}
               selectProject={this.selectProject}
+              removeProject={this.removeProject}
+              addNewProject={this.addNewProject}
+              history={this.props.history}
             />
           } />
 
@@ -78,15 +138,19 @@ class App extends Component {
             />
           } />
 
-          <Route exact path='/add' render={(props) =>
-            <AddProjectController
-            />
-          } />
-
           <Route exact path='/project' render={(props) =>
             <ProjectDetail
               project={this.state.selectedProject}
               addNewTask={this.addNewTask}
+              addNewSection={this.addNewSection}
+              removeSection={this.removeSection}
+              removeTask={this.removeTask}
+              completeTask={this.completeTask}
+            />
+          } />
+
+          <Route exact path='/results' render={(props) =>
+            <TasksOrderedByDateController
             />
           } />
         </Switch>

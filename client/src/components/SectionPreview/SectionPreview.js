@@ -16,7 +16,7 @@ class SectionPreview extends Component {
   render() {
     return (
       <div className='SectionPreview' >
-        {this.props.section.description}
+        {this.props.section.title}
       </div>
     )
   }

@@ -19,6 +19,10 @@ class DisplayAllTasks extends Component {
         <DisplayOneTask
           key={i}
           task={task}
+          index={i}
+          sectionId={this.props.sectionId}
+          removeTask={this.props.removeTask}
+          completeTask={this.props.completeTask}
         />
       )
     );

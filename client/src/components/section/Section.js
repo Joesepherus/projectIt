@@ -13,15 +13,29 @@ class Section extends Component {
     }
   }
 
+  removeSection(e) {
+    console.log(this.props.index);
+    this.props.removeSection(this.props.index);
+  }
+
   render() {
     return (
       <div className='section'>
         <Card>
-          <Card.Content header={this.props.section.description} />
+          <Card.Content
+            className='card-head'>
+            <h3>{this.props.section.title}</h3>
+            <span aria-hidden="true"
+              onClick={this.removeSection.bind(this)}>&times;</span>
+          </Card.Content>
           <Card.Content
             description={
               <DisplayAllTasks
-                section={this.props.section} />}
+                section={this.props.section}
+                sectionId={this.props.index}
+                removeTask={this.props.removeTask}
+                completeTask={this.props.completeTask}
+              />}
           />
           <Card.Content extra>
             {this.props.section ? <AddTask

@@ -1,27 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import './AddTask.css'
-import axios from 'axios';
+import { Card, Input } from 'semantic-ui-react'
 
 class AddTask extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      title: ''
     }
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    let newSection = Object.assign({}, this.props.section);
-    console.log(newSection);
-
-    newSection.tasks.push({ description: this.state.description });
-    this.props.addNewTask(newSection, this.props.index);
+    // this.props.actions.addTask({ title: this.state.title, sectionId: this.props.section.id, id: this.props.section.tasks.length});
+    this.props.addNewTask(this.state.title, this.props.section._id, this.props.section.tasks.length);
   }
 
-  changeDescription = (e) => {
+  changeTitle = (e) => {
     this.setState({
-      description: e.target.value
+      title: e.target.value
     })
   }
 
@@ -34,21 +30,56 @@ class AddTask extends Component {
   }
 
   render() {
+    console.log('ahoj');
+
     return (
       <div className='AddTask'>
-        <input
+        <Input
           type="text"
-          name="description"
+          name="title"
           placeholder="task"
-          value={this.state.description}
-          onChange={this.handleChange.bind(this, this.changeDescription)} />
-        <button
-          onClick={this.handleSubmit.bind(this)}>
-          Submit
-          </button>
+          value={this.state.title}
+          onChange={this.handleChange.bind(this, this.changeTitle)}
+          onBlur={this.handleSubmit.bind(this)} />
       </div>
     )
   }
 }
 
+// function hobbiesForCheckBoxes(hobbies) {
+//   return hobbies.map(hobby => {
+//     hobby['checked'] = false;
+//     return hobby;
+//   });
+// }
+
+
+// function mapStateToProps(state, ownProps) {
+//   let checkBoxHobbies = [];
+//   if (state.hobbies.length > 0) {
+//     checkBoxHobbies = hobbiesForCheckBoxes(Object.assign([], state.hobbies));
+//   }
+
+//   return {
+//     checkBoxHobbies: checkBoxHobbies
+//   };
+// }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     addTask: task => dispatch(addTask(task))
+//   };
+// };
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: bindActionCreators(courseActions, dispatch)
+//   };
+// }
+
+
+// export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
+
+// const ConnectedAddTask = connect(null, mapDispatchToProps)(AddTask);
+// export default ConnectedAddTask;
 export default AddTask;

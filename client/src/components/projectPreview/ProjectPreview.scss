@@ -1,8 +1,11 @@
+
 .projectPreview p:nth-child(1) {
-  display: inline; }
+  display: inline;
+}
 
 .projectPreview {
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .projectPreview span {
   float: right;
@@ -14,10 +17,12 @@
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
   color: black;
-  top: 15px; }
+  top: 15px;
+}
 
-.projectPreview:hover span {
+.projectPreview:hover span  {
   transition: 1s;
   left: 90%;
   visibility: visible;
-  opacity: 1; }
+  opacity: 1;
+}

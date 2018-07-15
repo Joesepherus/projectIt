@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import './AddProject.css'
 import axios from 'axios';
+import { Card, Input } from 'semantic-ui-react'
+import * as projectsActions from '../../actions/projectsActions';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 
 class AddProject extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      title: '',
+      description: ''
     }
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    axios.post("/api/project", {
-      title: this.state.title,
-      description: this.state.description,
-    })
-      .then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
+    if (this.state.description !== '' && this.state.title !== '') {
+      // this.props.addNewProject(this.state.title, this.state.description);
+      this.props.actions.addProject({
+        title: this.state.title,
+        description: this.state.description,
+        id: this.props.projectsLength
       });
+    }
+    else {
+      console.log("dicks");
+    }
+
+
   }
 
   changeDescription = (e) => {
@@ -46,25 +54,36 @@ class AddProject extends Component {
   render() {
     return (
       <div className='AddProject'>
-        <input
-          type="text"
-          name="title"
-          placeholder="title"
-          value={this.state.title}
-          onChange={this.handleChange.bind(this, this.changeTitle)} />
-        <input
-          type="text"
-          name="description"
-          placeholder="description"
-          value={this.state.description}
-          onChange={this.handleChange.bind(this, this.changeDescription)} />
-        <button
-          onClick={this.handleSubmit.bind(this)}>
-          Submit
-          </button>
+        <Card>
+          <Card.Content>
+            <Input
+              type="text"
+              name="title"
+              placeholder="title"
+              value={this.state.title}
+              onChange={this.handleChange.bind(this, this.changeTitle)}
+              onBlur={this.handleSubmit.bind(this)}
+            />
+            <Input
+              type="text"
+              name="description"
+              placeholder="description"
+              value={this.state.description}
+              onChange={this.handleChange.bind(this, this.changeDescription)}
+              onBlur={this.handleSubmit.bind(this)}
+            />
+          </Card.Content>
+        </Card>
       </div>
     )
   }
 }
 
-export default AddProject
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(projectsActions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(AddProject);

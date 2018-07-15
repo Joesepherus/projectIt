@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import './ProjectPreview.css'
-import Section from '../section/Section';
-import { Link } from 'react-router-dom';
 import { Card, Icon } from 'semantic-ui-react'
 import SectionPreview from '../SectionPreview/SectionPreview';
-import DisplayAllTasks from '../displayAllTasks/DisplayAllTasks';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux';
+import * as projectsActions from '../../actions/projectsActions';
 
 class ProjectPreview extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class ProjectPreview extends Component {
 
   renderSections() {
     return (
-      this.props.project.sections.map((section, i) =>
+      this.props.sections[this.props.index].map((section, i) =>
         <SectionPreview
           key={i}
           section={section}
@@ -31,26 +32,44 @@ class ProjectPreview extends Component {
     selectProject(this.props.project);
   }
 
+  removeProject(e) {
+    console.log(this.props.index);
+    this.props.projectsActions.deleteProject(this.props.project._id, this.props.project);
+    // this.props.removeProject(this.props.project._id, this.props.project);
+  }
+
+
   render() {
     console.log(this.props);
     return (
       <div className='projectPreview'
         onClick={this.handleClick.bind(this)}>
-        <Link to='/project'>
-          <Card>
-            <Card.Content header={this.props.project.title} />
-            <Card.Content>
-              {this.props.project.sections ?
-                <div className='sections'>
-                  {this.renderSections()}
-                </div>
-                : ''}
-            </Card.Content>
-          </Card>
-        </Link>
+        <Card>
+          <Card.Content>
+            <h3>{this.props.project.title}</h3>
+            <span aria-hidden="true"
+              onClick={this.removeProject.bind(this)}>&times;</span>
+          </Card.Content>
+
+          <Card.Content>
+            <div className='sections'>
+              {this.props.sections[this.props.index] ? this.renderSections() : ''}
+            </div>
+          </Card.Content>
+        </Card>
       </div>
     )
   }
 }
 
-export default ProjectPreview
+ProjectPreview.propTypes = {
+  projects: PropTypes.array.isRequired
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    projectsActions: bindActionCreators(projectsActions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(ProjectPreview);

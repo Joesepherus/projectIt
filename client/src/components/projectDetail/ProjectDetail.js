@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types' //ES6
-
+import { Link } from 'react-router-dom';
 
 import './ProjectDetail.css'
 import AddSection from '../addSection/AddSection';
@@ -24,6 +23,9 @@ class ProjectDetail extends Component {
           addNewTask={this.props.addNewTask}
           showTasks={true}
           index={i}
+          removeSection={this.props.removeSection}
+          removeTask={this.props.removeTask}
+          completeTask={this.props.completeTask}
         />
       )
     );
@@ -33,19 +35,22 @@ class ProjectDetail extends Component {
     console.log(this.props.project);
     return (
       <div className='projectDetail'>
+        <Link to='/'>back</Link>
         <p>projects title: {this.props.project.title}</p>
         <p>projects description: {this.props.project.description}</p>
-        {this.renderSections()}
-        <AddSection
-          project={this.props.project}
-        />
+        <div className='sections'>
+
+          {this.props.project.sections ? this.renderSections() : ''}
+
+          <AddSection
+            project={this.props.project}
+            addNewSection={this.props.addNewSection}
+          />
+        </div>
+
       </div>
     )
   }
 }
-
-ProjectDetail.propTypes = {
-
-};
 
 export default ProjectDetail
