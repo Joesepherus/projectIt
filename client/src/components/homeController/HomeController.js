@@ -12,13 +12,15 @@ class HomeController extends Component {
 
   render() {
     return (
-      <AllProjects
-        sections={this.props.sections}
-        selectProject={this.props.selectProject}
-        removeProject={this.props.removeProject}
-        addNewProject={this.props.addNewProject}
-        history={this.props.history}
-      />
+      <React.Fragment>
+        <AllProjects
+          sections={this.props.sections}
+          selectProject={this.props.selectProject}
+          removeProject={this.props.removeProject}
+          addNewProject={this.props.addNewProject}
+          history={this.props.history}
+        />
+      </React.Fragment>
     )
   }
 }

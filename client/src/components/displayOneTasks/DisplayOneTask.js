@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' //ES6
-
-
+import { bindActionCreators } from 'redux';
+import * as tasksActions from '../../actions/tasksActions';
+import { connect } from 'react-redux';
 import './DisplayOneTask.css'
 
 class DisplayOneTask extends Component {
@@ -20,7 +21,8 @@ class DisplayOneTask extends Component {
   removeTask(e) {
     console.log(this.props.index);
     console.log(this.props.sectionId);
-    this.props.removeTask(this.props.index, this.props.sectionId);
+    this.props.tasksActions.deleteTask(this.props.task._id);
+    // this.props.removeTask(this.props.index, this.props.sectionId);
   }
 
   isHovering = () => {
@@ -53,4 +55,10 @@ DisplayOneTask.propTypes = {
 
 };
 
-export default DisplayOneTask
+function mapDispatchToProps(dispatch) {
+  return {
+    tasksActions: bindActionCreators(tasksActions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(DisplayOneTask);

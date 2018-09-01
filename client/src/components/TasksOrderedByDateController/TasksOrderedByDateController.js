@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './TasksOrderedByDateController.css';
 import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class TasksOrderedByDateController extends Component {
 
@@ -61,19 +62,22 @@ class TasksOrderedByDateController extends Component {
     console.log(this.state.selectedTasks);
 
     return (
-      <div className='TasksOrderedByDateController'>
-        <select onChange={this.change.bind(this)} value={this.state.value}>
-          <option value="all">all</option>
-          <option value="completed">completed</option>
-          <option value="inprogress">inprogress</option>
-          <option value="removed">removed</option>
-        </select>
-        <TasksOrderedByDate
-          tasks={this.state.selectedTasks}
-        />
-      </div>
-    )
-  }
-}
-
+      <React.Fragment>
+        <Link to='/'>back</Link>
+        <div className='TasksOrderedByDateController'>
+          <select onChange={this.change.bind(this)} value={this.state.value}>
+            <option value="all">all</option>
+            <option value="completed">completed</option>
+            <option value="inprogress">inprogress</option>
+            <option value="removed">removed</option>
+          </select>
+          <TasksOrderedByDate
+            tasks={this.state.selectedTasks}
+          />
+        </div>
+        </React.Fragment>
+          )
+        }
+      }
+      
 export default TasksOrderedByDateController

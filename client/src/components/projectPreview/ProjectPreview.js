@@ -35,7 +35,6 @@ class ProjectPreview extends Component {
   removeProject(e) {
     console.log(this.props.index);
     this.props.projectsActions.deleteProject(this.props.project._id, this.props.project);
-    // this.props.removeProject(this.props.project._id, this.props.project);
   }
 
 

@@ -8,6 +8,7 @@ import ProjectDetail from './components/projectDetail/ProjectDetail';
 import axios from 'axios';
 import TasksOrderedByDate from './components/TasksOrderedByDate/TasksOrderedByDate';
 import TasksOrderedByDateController from './components/TasksOrderedByDateController/TasksOrderedByDateController';
+import Main from './components/Main/Main';
 
 
 class App extends Component {
@@ -30,7 +31,6 @@ class App extends Component {
     }
   }
 
-
   selectProject = (project) => {
     let self = this;
     console.log(project);
@@ -41,13 +41,10 @@ class App extends Component {
           selectedProject: response.data
         })
         self.props.history.push('/project');
-
       })
       .catch(function (error) {
         console.log(error);
-
       })
-
   }
 
   addNewTask = (title, sectionId, taskId) => {
@@ -91,7 +88,7 @@ class App extends Component {
       }).catch(function (error) {
         console.log(error);
       });
-    this.getAllProjects();
+    // this.getAllProjects();
   }
 
   removeTask = (taskId, sectionId) => {
@@ -103,7 +100,7 @@ class App extends Component {
       }).catch(function (error) {
         console.log(error);
       });
-    this.getAllProjects();
+    // this.getAllProjects();
   }
 
   completeTask = (task) => {
@@ -113,47 +110,27 @@ class App extends Component {
       }).catch(function (error) {
         console.log(error);
       });
-    this.getAllProjects();
+    // this.getAllProjects();
   }
 
   render() {
-    console.log(this.state.sections);
+    console.log(this.state.selectedProject);
 
     return (
       <div className="App">
-        <Switch>
-          <Route exact path='/' render={(props) =>
-            <HomeController
-              selectedProject={this.props.selectedProject}
-              sections={this.state.sections}
-              selectProject={this.selectProject}
-              removeProject={this.removeProject}
-              addNewProject={this.addNewProject}
-              history={this.props.history}
-            />
-          } />
-
-          <Route exact path='/login' render={(props) =>
-            <LoginController
-            />
-          } />
-
-          <Route exact path='/project' render={(props) =>
-            <ProjectDetail
-              project={this.state.selectedProject}
-              addNewTask={this.addNewTask}
-              addNewSection={this.addNewSection}
-              removeSection={this.removeSection}
-              removeTask={this.removeTask}
-              completeTask={this.completeTask}
-            />
-          } />
-
-          <Route exact path='/results' render={(props) =>
-            <TasksOrderedByDateController
-            />
-          } />
-        </Switch>
+        <Main
+          selectedProject={this.state.selectedProject}
+          sections={this.state.sections}
+          removeProject={this.removeProject}
+          addNewProject={this.addNewProject}
+          addNewTask={this.addNewTask}
+          addNewSection={this.addNewSection}
+          removeSection={this.removeSection}
+          removeTask={this.removeTask}
+          completeTask={this.completeTask}
+          history={this.props.history}
+          selectProject={this.selectProject}
+        ></Main>
       </div>
     );
   }

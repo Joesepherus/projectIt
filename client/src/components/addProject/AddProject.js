@@ -27,8 +27,6 @@ class AddProject extends Component {
     else {
       console.log("dicks");
     }
-
-
   }
 
   changeDescription = (e) => {

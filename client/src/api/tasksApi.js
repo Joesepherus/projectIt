@@ -13,5 +13,14 @@ class TaskApi {
 			});
 	}
 
+	static deleteTask = (id) => {
+		return axios.delete('api/task/deleted/' + id, {
+		}).then(response => {
+			return response;
+		}).catch(error =>{
+			return error;
+		});
+	}
+
 }
 export default TaskApi;
