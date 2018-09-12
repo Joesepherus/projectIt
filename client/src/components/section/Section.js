@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import './Section.css'
 import DisplayAllTasks from '../displayAllTasks/DisplayAllTasks';
 import AddTask from '../addTask/AddTask';
+import { inject, observer } from 'mobx-react';
 import { Card, Icon } from 'semantic-ui-react'
 
-
+@inject('projectsStore')
+@observer
 class Section extends Component {
   constructor(props) {
     super(props)
@@ -13,9 +15,10 @@ class Section extends Component {
     }
   }
 
-  removeSection(e) {
-    console.log(this.props.index);
-    this.props.removeSection(this.props.index);
+  deleteSection = (e) => {
+    const { projectsStore, section } = this.props;
+    projectsStore.deleteSection(section);
+
   }
 
   render() {
@@ -26,7 +29,7 @@ class Section extends Component {
             className='card-head'>
             <h3>{this.props.section.title}</h3>
             <span aria-hidden="true"
-              onClick={this.removeSection.bind(this)}>&times;</span>
+              onClick={this.deleteSection.bind(this)}>&times;</span>
           </Card.Content>
           <Card.Content
             description={

@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import './AddSection.css'
 import { Card, Input } from 'semantic-ui-react'
+import { observer, inject } from 'mobx-react';
 
+@inject('projectsStore')
+@observer
 class AddSection extends Component {
   constructor(props) {
     super(props)
@@ -11,27 +14,30 @@ class AddSection extends Component {
     }
   }
 
-  handleSubmit(e) {
-    if (this.state.title !== '') {
-      this.props.addNewSection(this.state.title, this.props.project.id, this.props.project.sections.length);
-    }
-  }
 
-  changeTitle = (e) => {
-    this.setState({
-      title: e.target.value
-    })
-  }
 
-  appropriateChange(callback, e) {
-    return callback(e);
+  componentWillUnmount() {
+    const { projectsStore } = this.props;
+    projectsStore.resetInputs();
   }
 
   handleChange = (type, e) => {
-    this.appropriateChange(type, e);
+    this.props.projectsStore.handleSectionChange(type, 
+      e.target.value)
+  }
+
+  handleSubmit(e) {
+    const { projectsStore } = this.props;
+    if (projectsStore.sectionInputs.title !== ''){
+      projectsStore.sectionInputs.id = projectsStore.project.sections.length;
+      this.props.projectsStore.addSection(
+        projectsStore.sectionInputs);
+    }
   }
 
   render() {
+    const { projectsStore } = this.props;
+
     console.log(this.props.project);
     return (
       <div className='addSection'>
@@ -41,8 +47,8 @@ class AddSection extends Component {
               type="text"
               name="title"
               placeholder="title"
-              value={this.state.title}
-              onChange={this.handleChange.bind(this, this.changeTitle)}
+              value={projectsStore.sectionInputs.title}
+              onChange={this.handleChange.bind(this, 'title')}
               onBlur={this.handleSubmit.bind(this)}
             />
           </Card.Content>

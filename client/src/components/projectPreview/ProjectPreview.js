@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import './ProjectPreview.css'
 import { Card, Icon } from 'semantic-ui-react'
 import SectionPreview from '../SectionPreview/SectionPreview';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import * as projectsActions from '../../actions/projectsActions';
+import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
+@inject('projectsStore')
+@observer
 class ProjectPreview extends Component {
   constructor(props) {
     super(props)
@@ -16,8 +19,9 @@ class ProjectPreview extends Component {
   }
 
   renderSections() {
+    console.log(this.props.project);
     return (
-      this.props.sections[this.props.index].map((section, i) =>
+      this.props.project.sections.map((section, i) =>
         <SectionPreview
           key={i}
           section={section}
@@ -27,36 +31,44 @@ class ProjectPreview extends Component {
   }
 
   handleClick = (e) => {
-    const { selectProject } = this.props;
-    e.preventDefault();
-    selectProject(this.props.project);
+    const { projectsStore } = this.props;
+    projectsStore.selectProject(this.props.project);
   }
 
-  removeProject(e) {
+  deleteProject(e) {
+    e.preventDefault();
+    const { projectsStore } = this.props;
     console.log(this.props.index);
-    this.props.projectsActions.deleteProject(this.props.project._id, this.props.project);
+    let promise = new Promise((resolve, reject) => {
+      resolve(projectsStore.deleteProject(this.props.project));
+    });
+    promise.then((response) => {
+      projectsStore.getProjects();
+    });
   }
 
 
   render() {
     console.log(this.props);
     return (
-      <div className='projectPreview'
-        onClick={this.handleClick.bind(this)}>
-        <Card>
-          <Card.Content>
-            <h3>{this.props.project.title}</h3>
-            <span aria-hidden="true"
-              onClick={this.removeProject.bind(this)}>&times;</span>
-          </Card.Content>
+      <Link to="/project">
+        <div className='projectPreview'
+          onClick={this.handleClick.bind(this)}>
+          <Card>
+            <Card.Content>
+              <h3>{this.props.project.title}</h3>
+              <span aria-hidden="true"
+                onClick={this.deleteProject.bind(this)}>&times;</span>
+            </Card.Content>
 
-          <Card.Content>
-            <div className='sections'>
-              {this.props.sections[this.props.index] ? this.renderSections() : ''}
-            </div>
-          </Card.Content>
-        </Card>
-      </div>
+            <Card.Content>
+              <div className='sections'>
+                {this.props.project.sections[this.props.index] ? this.renderSections() : ''}
+              </div>
+            </Card.Content>
+          </Card>
+        </div>
+      </Link>
     )
   }
 }
@@ -71,4 +83,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(ProjectPreview);
+export default ProjectPreview;

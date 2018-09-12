@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import './AddProject.css'
-import axios from 'axios';
 import { Card, Input } from 'semantic-ui-react'
-import * as projectsActions from '../../actions/projectsActions';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
+import { inject, observer } from 'mobx-react';
 
+@inject('projectsStore')
+@observer
 class AddProject extends Component {
   constructor(props) {
     super(props)
@@ -15,38 +14,26 @@ class AddProject extends Component {
     }
   }
 
-  handleSubmit(e) {
-    if (this.state.description !== '' && this.state.title !== '') {
-      // this.props.addNewProject(this.state.title, this.state.description);
-      this.props.actions.addProject({
-        title: this.state.title,
-        description: this.state.description,
-        id: this.props.projectsLength
-      });
-    }
-    else {
-      console.log("dicks");
-    }
-  }
-
-  changeDescription = (e) => {
-    this.setState({
-      description: e.target.value
-    })
-  }
-
-  changeTitle = (e) => {
-    this.setState({
-      title: e.target.value
-    })
-  }
-
-  appropriateChange(callback, e) {
-    return callback(e);
+  componentWillUnmount() {
+    const { projectsStore } = this.props;
+    projectsStore.resetInputs();
   }
 
   handleChange = (type, e) => {
-    this.appropriateChange(type, e);
+    this.props.projectsStore.handleChange(type, e.target.value)
+  }
+
+  handleSubmit(e) {
+    const { projectsStore } = this.props;
+    if (projectsStore.inputs.title !== '' &&
+      projectsStore.inputs.description !== '') {
+      let promise = new Promise((resolve, reject) => {
+        resolve(this.props.projectsStore.addProject(projectsStore.inputs));
+      });
+      promise.then((response) => {
+        projectsStore.getProjects();
+      });
+    }
   }
 
   render() {
@@ -58,16 +45,16 @@ class AddProject extends Component {
               type="text"
               name="title"
               placeholder="title"
-              value={this.state.title}
-              onChange={this.handleChange.bind(this, this.changeTitle)}
+              value={this.props.projectsStore.inputs.title}
+              onChange={this.handleChange.bind(this, 'title')}
               onBlur={this.handleSubmit.bind(this)}
             />
             <Input
               type="text"
               name="description"
               placeholder="description"
-              value={this.state.description}
-              onChange={this.handleChange.bind(this, this.changeDescription)}
+              value={this.props.projectsStore.inputs.description}
+              onChange={this.handleChange.bind(this, 'description')}
               onBlur={this.handleSubmit.bind(this)}
             />
           </Card.Content>
@@ -77,11 +64,4 @@ class AddProject extends Component {
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(projectsActions, dispatch)
-  };
-}
-
-export default connect(null, mapDispatchToProps)(AddProject);
+export default AddProject;

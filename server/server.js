@@ -67,13 +67,23 @@ app.get('/api/project', function (req, res) {
     console.log(allProjects);
     res.json(allProjects);
   });
+})
 
+// display a problem with a certain ID
+app.get('/api/project/:id', function(req, res){
+	Project.getProjectById(req.params.id, 
+		function(err, project){
+		if(err){
+			throw err;
+		}
+		res.json(project);
+	});
 })
 
 // add a new project
 app.post('/api/project', function (req, res) {
-  var project = req.body;
-
+  var project = req.body.project;
+  console.log(project);
   Project.addProject(project, function (err, project) {
     if (err) {
       throw (err);
@@ -90,8 +100,9 @@ app.post('/api/project', function (req, res) {
 // update a project
 app.put('/api/project/:id', function (req, res) {
   var id = req.params.id;
-  var project = req.body;
-
+  var project = req.body.project;
+  console.log(id);
+  console.log(project);
   Project.updateProject(id, project, {},
     function (err, project) {
       if (err) {

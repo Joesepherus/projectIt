@@ -25,17 +25,7 @@ class projectApi {
 	}
 
 	static addProject(project) {
-		return axios.post("/api/project", {
-			title: project.title,
-			description: project.description,
-			id: project.id,
-		})
-			.then(function (response) {
-				console.log(response);
-				return response;
-			}).catch(function (error) {
-				console.log(error);
-			});
+
 	}
 
 	static deleteProject = (id, project) => {

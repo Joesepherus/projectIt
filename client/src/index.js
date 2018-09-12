@@ -4,23 +4,19 @@ import './index.css';
 import App from './App';
 import { Router, Route, Link } from 'react-router-dom';
 import history from './history';
-import { Provider } from "react-redux";
-import configureStore from "./store/configureStore";
-import { loadProjects } from './actions/projectsActions';
+import { Provider } from "mobx-react";
+import projectsStore from './stores/projectsStore';
 
-const store = configureStore();
+const stores = {
+  projectsStore,
+};
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider {...stores}>
     <Router history={history}>
       <App
         history={history}
-        store={store}
       />
     </Router>
-  </Provider>, document.getElementById('root'));
-
-store.dispatch(loadProjects());
-let state = store.getState();
-
-console.log(state);
+  </Provider>,
+  document.getElementById('root'));
