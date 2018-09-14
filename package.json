@@ -9,8 +9,7 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
-    "client": "node start-client.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "client": "node start-client.js"
   },
   "dependencies": {
     "body-parser": "*",
