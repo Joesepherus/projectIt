@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "React Web App about Maths",
   "main": "app.js",
+  "engines": {
+    "npm": "6.2.x"
+  }
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",

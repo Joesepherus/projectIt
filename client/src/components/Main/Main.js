@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Main.css';
-import HomeController from '../homeController/HomeController';
+import HomeController from '../HomeController/HomeController';
 import { Switch, Route } from 'react-router-dom';
 import LoginController from '../loginController/LoginController';
 import AddProjectController from '../addProjectController/AddProjectController';
