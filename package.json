@@ -7,9 +7,8 @@
     "npm": "6.2.x"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server.js",
-    "client": "node start-client.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "*",
