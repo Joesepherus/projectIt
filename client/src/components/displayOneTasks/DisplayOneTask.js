@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' //ES6
-import { bindActionCreators } from 'redux';
 import * as tasksActions from '../../actions/tasksActions';
 import './DisplayOneTask.css'
 import { inject, observer } from 'mobx-react';

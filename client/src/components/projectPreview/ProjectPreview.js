@@ -3,7 +3,6 @@ import './ProjectPreview.css'
 import { Card, Icon } from 'semantic-ui-react'
 import SectionPreview from '../SectionPreview/SectionPreview';
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux';
 import * as projectsActions from '../../actions/projectsActions';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
