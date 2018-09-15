@@ -8,10 +8,11 @@
   },
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build && mv build ../",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
-    "client": "node start-client.js"
+    "client": "node start-client.js",
+    "test": "cd client && npm run build && mv build ../"
   },
   "dependencies": {
     "body-parser": "*",
