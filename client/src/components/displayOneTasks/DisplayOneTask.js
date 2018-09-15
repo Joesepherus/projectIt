@@ -54,10 +54,4 @@ DisplayOneTask.propTypes = {
 
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    tasksActions: bindActionCreators(tasksActions, dispatch)
-  };
-}
-
 export default DisplayOneTask;

@@ -76,10 +76,4 @@ ProjectPreview.propTypes = {
   projects: PropTypes.array.isRequired
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    projectsActions: bindActionCreators(projectsActions, dispatch)
-  };
-}
-
 export default ProjectPreview;
