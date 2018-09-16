@@ -5,6 +5,56 @@ import './ProjectDetail.css'
 import AddSection from '../addSection/AddSection';
 import Section from '../section/Section';
 import { inject, observer } from 'mobx-react';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import { spacing } from '../../styles/base/spacing';
+
+const styles = theme => ({
+  title: {
+    fontSize: 24,
+    fontWeight: 600,
+    textAlign: 'center',
+    color: '#FFF',
+    maxWidth: 200,
+    margin: 'auto'
+  },
+  description: {
+    fontSize: 14,
+    fontWeight: 200,
+    textAlign: 'center',
+    color: '#FFF',
+    maxWidth: 200,
+    margin: 'auto'
+  },
+  textField: {
+    minWidth: '200px',
+    // margin: `${spacing.space2} 0px 0px 0px`,
+    color: '#FFFF',
+    width: '100%'
+  },
+
+
+  inputsContainer: {
+    padding: `0 ${spacing.space20}`,
+    '@media (max-width: 600px)': {
+      padding: 0,
+    }
+  },
+  backLink: {
+    color: '#fff',
+    float: 'left',
+    fontSize: '45px!important',
+  },
+  resultsLink: {
+    color: '#fff',
+    fontSize: '45px!important',
+    fontFamily: 'Material Icons',
+    fontStyle: 'normal',
+    lineHeight: 1,
+    float: 'right',
+  }
+})
 
 
 @inject('projectsStore')
@@ -13,7 +63,7 @@ class ProjectDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      ...this.props.projectsStore.project
     }
   }
 
@@ -36,17 +86,95 @@ class ProjectDetail extends Component {
     );
   }
 
-  render() {
+  handleChange = type => e => {
+    console.log(type);
+    console.log(e.target.value);
+    this.setState({
+      [type]: e.target.value
+    })
+    // this.props.projectsStore.handleChange(type, e.target.value)
+  }
+
+  handleSubmit = (e) => {
     const { projectsStore } = this.props;
+    const project = this.state;
+    if (project.title !== '' &&
+      project.description !== '') {
+      let promise = new Promise((resolve, reject) => {
+        resolve(this.props.projectsStore.updateProject(project));
+      });
+      promise.then((response) => {
+        projectsStore.getProjects();
+      });
+    }
+  }
+
+  render() {
+    const { projectsStore, classes } = this.props;
 
     console.log(projectsStore.project);
     return (
       <div className='projectDetail'>
-        <Link to='/'>back</Link>
-        <p>projects title: {projectsStore.project.title}</p>
-        <p>projects description: {projectsStore.project.description}</p>
-        <div className='sections'>
+        <Link to='/' className={classes.backLink}>
+          <i class="material-icons">
+            arrow_back_ios
+            </i>
+        </Link>
+        <Link to='results'
+          className={classes.resultsLink}>
+          <i>
+            ballot
+          </i>
+        </Link>
 
+
+        {/* <input
+          type='text'
+          placeholder='title'
+          value={this.state.title}
+          onChange={this.handleChange.bind(this, 'title')}
+          onBlur={this.handleSubmit.bind(this)}
+        /> */}
+
+        <Grid container
+          className={classes.inputsContainer}
+          spacing={8}>
+          <Grid item xs={12}>
+            <TextField
+              type='text'
+              placeholder='title'
+              value={this.state.title}
+              onChange={this.handleChange('title')}
+              onBlur={this.handleSubmit.bind(this)}
+              className={classes.textField}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  input: classes.title,
+                },
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              type='text'
+              placeholder='description'
+              value={this.state.description}
+              onChange={this.handleChange('description')}
+              onBlur={this.handleSubmit.bind(this)}
+              className={classes.textField}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  input: classes.description,
+                },
+              }}
+            />
+
+          </Grid>
+        </Grid>
+
+        <div className='sections'>
           {projectsStore.project.sections ? this.renderSections() : ''}
 
           <AddSection
@@ -60,4 +188,4 @@ class ProjectDetail extends Component {
   }
 }
 
-export default ProjectDetail
+export default withStyles(styles)(ProjectDetail);

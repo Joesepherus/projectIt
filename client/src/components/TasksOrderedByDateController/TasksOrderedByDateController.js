@@ -4,7 +4,10 @@ import './TasksOrderedByDateController.css';
 import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
+@inject('projectsStore')
+@observer
 class TasksOrderedByDateController extends Component {
 
   constructor(props) {
@@ -20,19 +23,38 @@ class TasksOrderedByDateController extends Component {
   }
 
   getAllTasks = () => {
-    let self = this;
-    console.log('getting tasks');
-    console.log(this.state.sections);
-    axios.get('/api/task')
-      .then(function (response) {
-        console.log(response.data);
-        self.setState({
-          tasks: response.data,
-          selectedTasks: response.data
-        })
-      })
-      .catch(function (error) {
-      });
+    const { projectsStore } = this.props;
+
+    console.log(projectsStore.projects)
+    console.log(projectsStore.projectsLength)
+    let allTasks = [];
+    for (let i = 0; i < projectsStore.projects.length; i++) {
+      for (let j = 0; j < projectsStore.projects[i].sections.length; j++) {
+        if (projectsStore.projects[i].sections[j].tasks !== undefined) {
+          for (let k = 0; k < projectsStore.projects[i].sections[j].tasks.length; k++) {
+            allTasks.push(projectsStore.projects[i].sections[j].tasks[k]);
+          }
+        }
+      }
+    }
+    console.log(allTasks);
+
+    allTasks.sort(function (a, b) {
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      if(a.completed_date === '') {
+        return 1;
+      }
+      if(b.completed_date === '') {
+        return -1;
+      }
+      return new Date(b.completed_date) - new Date(a.completed_date);
+    });
+    console.log(allTasks);
+    this.setState({
+      tasks: allTasks,
+      selectedTasks: allTasks
+    })
   }
 
   change(event) {
@@ -75,9 +97,9 @@ class TasksOrderedByDateController extends Component {
             tasks={this.state.selectedTasks}
           />
         </div>
-        </React.Fragment>
-          )
-        }
-      }
-      
+      </React.Fragment>
+    )
+  }
+}
+
 export default TasksOrderedByDateController

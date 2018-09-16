@@ -3,4 +3,5 @@
 /* RGB */
 .projectDetail {
   background: linear-gradient(#437f97, #6f1a07);
-  min-height: 100vh; }
+  min-height: 100vh;
+  padding: 20px 20px 0px 20px; }

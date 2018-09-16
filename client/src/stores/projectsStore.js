@@ -8,7 +8,7 @@ import { addProject, deleteProject } from '../actions/projectsActions';
 export class AccountStore {
   @observable projects = [];
   @observable project;
-  @observable projectLength;
+  @observable projectsLength;
   @observable inputs = {
     title: '',
     description: ''
@@ -30,7 +30,7 @@ export class AccountStore {
       .then(response => {
         console.log(response);
         this.projects = response.data;
-        this.projectLength = response.data.length;
+        this.projectsLength = response.data.length;
         return response;
       }).catch(error => {
         console.log(error);
@@ -77,6 +77,20 @@ export class AccountStore {
     // this.setSectionId(project.sections.length);
   }
 
+  @action updateProject(project) {
+    return axios.put('api/project/' + project._id, {
+      project: project
+    })
+      .then(response => {
+        console.log(response);
+        return response;
+      })
+      .catch(error => {
+        console.log(error);
+        return error;
+      })
+  }
+
   @action deleteProject(project) {
     return axios.delete('api/project/deleted/' + project._id, {
       project: project
@@ -120,6 +134,35 @@ export class AccountStore {
           }).catch(error => {
             console.log(error);
           }));
+    })
+    promise.then((response) => {
+      this.getProjects();
+      this.getProject();
+    });
+  }
+
+  @action updateSection(section) {
+    console.log(section);
+    let found = this.project.sections.findIndex(function (element) {
+      return element.id === section.id
+    });
+    console.log(found);
+
+    this.project.sections[found] = section;
+
+
+    let promise = new Promise((resolve, reject) => {
+      resolve(
+        axios.put("/api/project/" + this.project._id, {
+          project: this.project
+        })
+          .then(response => {
+            console.log(response);
+            return response;
+          }).catch(error => {
+            console.log(error);
+          })
+      )
     })
     promise.then((response) => {
       this.getProjects();
@@ -234,6 +277,47 @@ export class AccountStore {
       this.getProject();
     });
   }
+
+  @action updateTask(task, section) {
+    console.log(this.project);
+    console.log(section);
+    console.log(task);
+    let foundSectionIndex = this.project.sections.findIndex(
+      function (element) {
+        console.log(element.id)
+        console.log(section.id)
+        return element.id === section.id
+      });
+    let foundTaskIndex = this.project.sections[foundSectionIndex].tasks.findIndex(
+      function (element) {
+        return element.id === task.id
+      });
+    console.log(foundSectionIndex);
+    console.log(foundTaskIndex);
+
+    this.project.sections[foundSectionIndex]
+      .tasks[foundTaskIndex] = task;
+
+
+    let promise = new Promise((resolve, reject) => {
+      resolve(
+        axios.put("/api/project/" + this.project._id, {
+          project: this.project
+        })
+          .then(response => {
+            console.log(response);
+            return response;
+          }).catch(error => {
+            console.log(error);
+          })
+      )
+    })
+    promise.then((response) => {
+      this.getProjects();
+      this.getProject();
+    });
+  }
+
 }
 
 export default new AccountStore();

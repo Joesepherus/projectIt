@@ -1,0 +1,187 @@
+.black {
+  color: black; }
+
+input {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  text-align: left; }
+
+.inline div {
+  display: inline; }
+
+/* colors */
+.grey {
+  color: #959598; }
+
+.white {
+  color: white !important; }
+
+.black {
+  color: black !important; }
+
+.secondary-color {
+  color: #959598; }
+
+.primary-color {
+  color: #9da2a6; }
+
+/* bg colors */
+.bg-transparent {
+  background-color: transparent; }
+
+.bg-white {
+  background-color: white !important; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  font-weight: 100; }
+
+/* ----- TEXT ----- */
+/* paragraphs */
+p.main-text {
+  font-size: 22px;
+  max-width: 500px; }
+
+p {
+  margin: 0px; }
+
+/* headings */
+h1.main-heading {
+  font-size: calc(2vw + 2vh + 2vmin); }
+
+/* ----- LINKS ----- */
+a {
+  text-shadow: none !important;
+  text-decoration: none !important; }
+
+/* ----- BORDERS ----- */
+.border-solid {
+  border-style: solid; }
+
+.border-width-1 {
+  border-width: 1px; }
+
+.border-1 {
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f5f5f5; }
+
+/* ----- FONTS ----- */
+@font-face {
+  font-family: 'icons';
+  src: url("/../assets/fonts/icomoon.eot");
+  src: local("/../assets/fonts/icomoon"), url("/../assets/fonts/icomoon.woff") format("woff"), url("/../assets/fonts/icomoon.ttf") format("truetype"); }
+
+.font-light {
+  font-weight: 100; }
+
+.font-regular {
+  font-weight: 400; }
+
+.font-bold {
+  font-weight: 700; }
+
+.pointer {
+  cursor: pointer; }
+
+.container {
+  max-width: 100%; }
+
+div[contenteditable="true"] {
+  min-width: 10px; }
+
+.react-datepicker-wrapper input {
+  text-align: center; }
+
+a:hover {
+  text-decoration: none; }
+
+.ui.primary.button {
+  background-color: #30bbc4; }
+
+input,
+button {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-weight: 300 !important; }
+
+.simple-form input {
+  margin: 0 .25rem !important;
+  min-width: 125px !important;
+  border: 1px solid #eee !important;
+  border-left: 4px solid !important;
+  border-radius: 5px !important;
+  transition: border-color .5s ease-out !important; }
+
+.simple-form .inputOptional {
+  border-left-color: #999 !important; }
+
+.simple-form .inputPassed {
+  border-left-color: palegreen !important; }
+
+.simple-form .inputFail {
+  border-left-color: salmon !important; }
+
+.ui.form .field.field input:-webkit-autofill:focus {
+  border-color: palegreen !important; }
+
+#floating-button {
+  color: white; }
+
+.floatRight {
+  float: right; }
+
+.ui.primary.button:active {
+  background-color: #30bbc4; }
+
+.ui.button {
+  margin: 0px; }
+
+.react-datepicker__header {
+  height: 64px; }
+
+.ui.primary.button:focus,
+.ui.primary.buttons .button:focus {
+  background-color: #30bbc4; }
+
+.simple-form input {
+  margin: 0px !important; }
+
+.flex {
+  display: flex;
+  justify-content: center;
+  justify-items: center; }
+
+p {
+  line-height: 1.5; }
+
+.placeholder {
+  color: #959598 !important; }
+
+.material-icons {
+  color: #9da2a6; }
+
+.m0 {
+  margin: 0px !important; }
+
+.m0 input {
+  padding-top: 0px; }
+
+.block {
+  display: block !important; }
+
+.iconRed {
+  color: red;
+  text-align: center; }
+
+i {
+  cursor: pointer; }
+
+.timeCompensation svg,
+.financialExpenditure svg,
+.otherCharges svg,
+.NewFile svg {
+  display: none; }

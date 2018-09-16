@@ -9,6 +9,18 @@ import axios from 'axios';
 import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate';
 import TasksOrderedByDateController from '../TasksOrderedByDateController/TasksOrderedByDateController';
 import Link from '../../../node_modules/react-router-dom/Link';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  link: {
+    color: '#fff',
+    fontSize: '45px!important',
+    fontFamily: 'Material Icons',
+    fontStyle: 'normal',
+    lineHeight: 1
+  }
+})
+
 
 class Main extends Component {
   constructor(props) {
@@ -19,9 +31,10 @@ class Main extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div className='Main'>
-        <Link to='results'>results</Link>
         <Switch>
           <Route exact path='/' render={(props) =>
             <HomeController
@@ -60,4 +73,4 @@ class Main extends Component {
   }
 }
 
-export default Main
+export default withStyles(styles)(Main);

@@ -38,28 +38,26 @@ class AddProject extends Component {
 
   render() {
     return (
-      <div className='AddProject'>
-        <Card>
-          <Card.Content>
-            <Input
-              type="text"
-              name="title"
-              placeholder="title"
-              value={this.props.projectsStore.inputs.title}
-              onChange={this.handleChange.bind(this, 'title')}
-              onBlur={this.handleSubmit.bind(this)}
-            />
-            <Input
-              type="text"
-              name="description"
-              placeholder="description"
-              value={this.props.projectsStore.inputs.description}
-              onChange={this.handleChange.bind(this, 'description')}
-              onBlur={this.handleSubmit.bind(this)}
-            />
-          </Card.Content>
-        </Card>
-      </div>
+      <Card>
+        <Card.Content>
+          <Input
+            type="text"
+            name="title"
+            placeholder="title"
+            value={this.props.projectsStore.inputs.title}
+            onChange={this.handleChange.bind(this, 'title')}
+            onBlur={this.handleSubmit.bind(this)}
+          />
+          <Input
+            type="text"
+            name="description"
+            placeholder="description"
+            value={this.props.projectsStore.inputs.description}
+            onChange={this.handleChange.bind(this, 'description')}
+            onBlur={this.handleSubmit.bind(this)}
+          />
+        </Card.Content>
+      </Card>
     )
   }
 }
