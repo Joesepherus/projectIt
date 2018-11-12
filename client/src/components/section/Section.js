@@ -1,87 +1,84 @@
-import React, { Component } from 'react'
-import './Section.css'
-import DisplayAllTasks from '../displayAllTasks/DisplayAllTasks';
-import AddTask from '../addTask/AddTask';
-import { inject, observer } from 'mobx-react';
-import { Card, Icon } from 'semantic-ui-react'
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import { spacing } from '../../styles/base/spacing';
-
+import React, { Component } from "react";
+import "./Section.css";
+import DisplayAllTasks from "../displayAllTasks/DisplayAllTasks";
+import AddTask from "../addTask/AddTask";
+import { inject, observer } from "mobx-react";
+import { Card, Icon } from "semantic-ui-react";
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import { spacing } from "../../styles/base/spacing";
 
 const styles = theme => ({
   title: {
     fontSize: 16,
     fontWeight: 400,
-    textAlign: 'center',
+    textAlign: "center"
   },
   sectionContainer: {
-    marginBottom: '30px!important'
+    marginBottom: "30px!important"
   }
-})
+});
 
-@inject('projectsStore')
+@inject("projectsStore")
 @observer
 class Section extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       ...this.props.section
-    }
+    };
   }
 
   handleChange = type => e => {
-    console.log(type);
-    console.log(e.target.value);
     this.setState({
       [type]: e.target.value
-    })
+    });
     // this.props.projectsStore.handleChange(type, e.target.value)
-  }
+  };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     const { projectsStore } = this.props;
     const section = this.state;
-    if (section.title !== '') {
+    if (section.title !== "") {
       let promise = new Promise((resolve, reject) => {
         resolve(projectsStore.updateSection(section));
       });
-      promise.then((response) => {
+      promise.then(response => {
         projectsStore.getProjects();
       });
     }
-  }
+  };
 
-  deleteSection = (e) => {
+  deleteSection = e => {
     const { projectsStore, section } = this.props;
     projectsStore.deleteSection(section);
-  }
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className='section'>
+      <div className="section">
         <Card className={classes.sectionContainer}>
-          <Card.Content
-            className='card-head'>
+          <Card.Content className="card-head">
             <TextField
-              type='text'
-              placeholder='title'
+              type="text"
+              placeholder="title"
               value={this.state.title}
-              onChange={this.handleChange('title')}
+              onChange={this.handleChange("title")}
               onBlur={this.handleSubmit.bind(this)}
               className={classes.textField}
               InputProps={{
                 disableUnderline: true,
                 classes: {
-                  input: classes.title,
-                },
+                  input: classes.title
+                }
               }}
             />
-            <span aria-hidden="true"
-              onClick={this.deleteSection.bind(this)}>&times;</span>
+            <span aria-hidden="true" onClick={this.deleteSection.bind(this)}>
+              &times;
+            </span>
           </Card.Content>
           <Card.Content
             description={
@@ -90,18 +87,23 @@ class Section extends Component {
                 sectionId={this.props.index}
                 removeTask={this.props.removeTask}
                 completeTask={this.props.completeTask}
-              />}
+              />
+            }
           />
           <Card.Content extra>
-            {this.props.section ? <AddTask
-              section={this.props.section}
-              addNewTask={this.props.addNewTask}
-              index={this.props.index}
-            /> : ''}
+            {this.props.section ? (
+              <AddTask
+                section={this.props.section}
+                addNewTask={this.props.addNewTask}
+                index={this.props.index}
+              />
+            ) : (
+              ""
+            )}
           </Card.Content>
         </Card>
       </div>
-    )
+    );
   }
 }
 

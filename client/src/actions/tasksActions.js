@@ -1,5 +1,5 @@
-import * as types from './actionTypes';
-import tasksApi from '../api/tasksApi';
+import * as types from "./actionTypes";
+import tasksApi from "../api/tasksApi";
 
 export function addTaskSuccess(task) {
   return {
@@ -12,27 +12,32 @@ export function addTaskSuccess(task) {
 export function deleteTaskSuccess(response, taskId) {
   return {
     type: types.DELETE_TASK_SUCCESS,
-    id: taskId,
-  }
+    id: taskId
+  };
 }
 
 export function addTask(task) {
-  console.log(task);
-  return function (dispatch) {
-    return tasksApi.addTask(task).then(response => {
-      dispatch(addTaskSuccess(response));
-    }).catch(error => {
-      throw (error);
-    });
+  return function(dispatch) {
+    return tasksApi
+      .addTask(task)
+      .then(response => {
+        dispatch(addTaskSuccess(response));
+      })
+      .catch(error => {
+        throw error;
+      });
   };
 }
 
 export function deleteTask(id) {
-  return function (dispatch) {
-    return tasksApi.deleteTask(id).then(response => {
-      dispatch(deleteTaskSuccess(response, id));
-    }).catch(error => {
-      throw (error);
-    })
-  }
+  return function(dispatch) {
+    return tasksApi
+      .deleteTask(id)
+      .then(response => {
+        dispatch(deleteTaskSuccess(response, id));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 }

@@ -1,76 +1,75 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var schema = mongoose.Schema({
   id: {
-    type: Number,
+    type: Number
   },
   title: {
-    type: String,
+    type: String
   },
   description: {
-    type: String,
+    type: String
   },
   sections: {
-    type: [],
+    type: []
   },
   state: {
-    type: String,
+    type: String
   },
   created_by: {
-    type: String,
+    type: String
   },
   create_date: {
-    type: Date,
+    type: Date
   },
   completed_date: {
-    type: Date,
+    type: Date
   },
   removed_date: {
-    type: Date,
+    type: Date
   }
 });
 
-var Project = module.exports = mongoose.model('Project', schema);
+var Project = (module.exports = mongoose.model("Project", schema));
 
-module.exports.getAllProjects = function (callback, limit) {
+module.exports.getAllProjects = function(callback, limit) {
   Project.find(callback).limit(limit);
-}
+};
 
-module.exports.getProjectById = function (projectId, callback) {
+module.exports.getProjectById = function(projectId, callback) {
   Project.findById(projectId, callback);
-}
+};
 
-module.exports.addProject = function (project, callback) {
+module.exports.addProject = function(project, callback) {
   var json = {
     id: project.id,
     title: project.title,
     description: project.description,
-    state: "inprogress",
-  }
+    state: "inprogress"
+  };
   Project.create(json, callback);
-}
+};
 
-module.exports.updateProject = function (id, project, options, callback) {
+module.exports.updateProject = function(id, project, options, callback) {
   var query = { _id: id };
-  console.log(project);
   var update = {
     title: project.title,
     description: project.description,
     sections: project.sections,
     state: project.state
-  }
+  };
   Project.findOneAndUpdate(query, update, options, callback);
-}
+};
 
-module.exports.removeProject = function (id, project, options, callback) {
+module.exports.removeProject = function(id, project, options, callback) {
   var query = { _id: id };
   var update = {
-    state: "removed",
-  }
+    state: "removed"
+  };
   Project.findOneAndUpdate(query, update, options, callback);
-}
+};
 
-module.exports.deletePermanentlyProject = function (id, callback) {
+module.exports.deletePermanentlyProject = function(id, callback) {
   var query = { _id: id };
   Project.deleteOne(query, callback);
-}
+};

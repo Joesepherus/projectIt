@@ -42,13 +42,11 @@ export class AccountStore {
     return axios
       .get("/api/project")
       .then(response => {
-        console.log(response);
         this.projects = response.data;
         this.projectsLength = response.data.length;
         return response;
       })
       .catch(error => {
-        console.log(error);
         throw error;
       });
   }
@@ -58,20 +56,17 @@ export class AccountStore {
     return axios
       .get("/api/project/" + projectId)
       .then(response => {
-        console.log(response);
         this.project = response.data;
         // this.setSectionId(this.project.sections.length);
         return response;
       })
       .catch(error => {
-        console.log(error);
         throw error;
       });
   }
 
   @action
   addProject(project) {
-    console.log(project);
     let promise = new Promise((resolve, reject) => {
       resolve(
         axios
@@ -79,17 +74,14 @@ export class AccountStore {
             project
           })
           .then(function(response) {
-            console.log(response);
             return response;
           })
-          .catch(function(error) {
-            console.log(error);
-          })
+          .catch(function(error) {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
@@ -106,11 +98,9 @@ export class AccountStore {
         project: project
       })
       .then(response => {
-        console.log(response);
         return response;
       })
       .catch(error => {
-        console.log(error);
         return error;
       });
   }
@@ -122,11 +112,9 @@ export class AccountStore {
         project: project
       })
       .then(response => {
-        console.log(response);
         return response;
       })
       .catch(error => {
-        console.log(error);
         return error;
       });
   }
@@ -144,15 +132,12 @@ export class AccountStore {
 
   @action
   setSectionId(id) {
-    console.log(id);
     this.sectionInputs.id = id;
   }
 
   @action
   addSection(section) {
     this.project.sections.push(section);
-    console.log(this.project);
-    console.log(section);
     let promise = new Promise((resolve, reject) => {
       resolve(
         axios
@@ -160,27 +145,22 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
   @action
   updateSection(section) {
-    console.log(section);
     let found = this.project.sections.findIndex(function(element) {
       return element.id === section.id;
     });
-    console.log(found);
 
     this.project.sections[found] = section;
 
@@ -191,27 +171,22 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
   @action
   deleteSection(section) {
-    console.log(section.id);
     let found = this.project.sections.findIndex(function(element) {
       return element.id === section.id;
     });
-    console.log(found);
 
     this.project.sections.splice(found, 1);
 
@@ -222,17 +197,14 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
@@ -267,28 +239,20 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
   @action
   deleteTask(task, section) {
-    console.log(this.project);
-    console.log(section);
-    console.log(task);
     let foundSectionIndex = this.project.sections.findIndex(function(element) {
-      console.log(element.id);
-      console.log(section.id);
       return element.id === section.id;
     });
     let foundTaskIndex = this.project.sections[
@@ -296,8 +260,6 @@ export class AccountStore {
     ].tasks.findIndex(function(element) {
       return element.id === task.id;
     });
-    console.log(foundSectionIndex);
-    console.log(foundTaskIndex);
 
     this.project.sections[foundSectionIndex].tasks.splice(foundTaskIndex, 1);
 
@@ -308,28 +270,20 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
   @action
   updateTask(task, section) {
-    console.log(this.project);
-    console.log(section);
-    console.log(task);
     let foundSectionIndex = this.project.sections.findIndex(function(element) {
-      console.log(element.id);
-      console.log(section.id);
       return element.id === section.id;
     });
     let foundTaskIndex = this.project.sections[
@@ -337,11 +291,8 @@ export class AccountStore {
     ].tasks.findIndex(function(element) {
       return element.id === task.id;
     });
-    console.log(foundSectionIndex);
-    console.log(foundTaskIndex);
 
     this.project.sections[foundSectionIndex].tasks[foundTaskIndex] = task;
-
     let promise = new Promise((resolve, reject) => {
       resolve(
         axios
@@ -349,23 +300,25 @@ export class AccountStore {
             project: this.project
           })
           .then(response => {
-            console.log(response);
             return response;
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch(error => {})
       );
     });
     promise.then(response => {
       this.getProjects();
-      this.getProject();
+      this.getProject(this.project._id);
     });
   }
 
   @action
   setTasks(task) {
     this.allTasks.push(task);
+  }
+
+  @action
+  resetTasks() {
+    this.allTasks = [];
   }
 
   @action

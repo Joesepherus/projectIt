@@ -1,26 +1,24 @@
-import axios from 'axios';
+import axios from "axios";
 
 class TaskApi {
+  static createTask(task) {
+    axios
+      .post("/api/task/", {
+        task
+      })
+      .then(function(response) {})
+      .catch(function(error) {});
+  }
 
-	static createTask(task) {
-		axios.post("/api/task/", {
-			task
-		})
-			.then(function (response) {
-				console.log(response);
-			}).catch(function (error) {
-				console.log(error);
-			});
-	}
-
-	static deleteTask = (id) => {
-		return axios.delete('api/task/deleted/' + id, {
-		}).then(response => {
-			return response;
-		}).catch(error =>{
-			return error;
-		});
-	}
-
+  static deleteTask = id => {
+    return axios
+      .delete("api/task/deleted/" + id, {})
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        return error;
+      });
+  };
 }
 export default TaskApi;

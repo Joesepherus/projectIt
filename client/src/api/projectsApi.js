@@ -1,46 +1,41 @@
-import axios from 'axios';
-
+import axios from "axios";
 
 class projectApi {
-	static getAllProjects() {
-		// let request = new Request('/api/project', {
-		// 	method: 'GET',
-		// });
+  static getAllProjects() {
+    // let request = new Request('/api/project', {
+    // 	method: 'GET',
+    // });
 
-		// return fetch(request).then(response => {
-		// 	return response.json();
-		// }).catch(error => {
-		// 	return error;
-		// });
+    // return fetch(request).then(response => {
+    // 	return response.json();
+    // }).catch(error => {
+    // 	return error;
+    // });
 
+    return axios
+      .get("/api/project")
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        return error;
+      });
+  }
 
-		return axios.get("/api/project")
-			.then(function (response) {
-				console.log(response);
-				return response;
-			}).catch(function (error) {
-				console.log(error);
-				return error;
-			});
-	}
+  static addProject(project) {}
 
-	static addProject(project) {
-
-	}
-
-	static deleteProject = (id, project) => {
-		return axios.delete('api/project/deleted/' + id, {
-			project: project
-		})
-			.then(response => {
-				console.log(response);
-				return response;
-			})
-			.catch(error => {
-				console.log(error);
-				return error;
-			});
-	}
+  static deleteProject = (id, project) => {
+    return axios
+      .delete("api/project/deleted/" + id, {
+        project: project
+      })
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        return error;
+      });
+  };
 }
 
-export default projectApi;  
+export default projectApi;

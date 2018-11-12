@@ -37,7 +37,6 @@ class ProjectPreview extends Component {
   }
 
   renderSections() {
-    console.log(this.props.project);
     return (
       <Grid
         container
@@ -61,7 +60,6 @@ class ProjectPreview extends Component {
   deleteProject(e) {
     e.preventDefault();
     const { projectsStore } = this.props;
-    console.log(this.props.index);
     let promise = new Promise((resolve, reject) => {
       resolve(projectsStore.deleteProject(this.props.project));
     });
@@ -73,7 +71,6 @@ class ProjectPreview extends Component {
   render() {
     const { classes, project } = this.props;
 
-    console.log(this.props);
     return (
       <Link to={`/project/${project._id}`}>
         <div

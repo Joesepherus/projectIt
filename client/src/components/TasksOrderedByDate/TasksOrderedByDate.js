@@ -28,8 +28,6 @@ class TasksOrderedByDate extends Component {
       );
       return this.props.tasks.map((task, index) => {
         let taskDate = moment(task.completed_date).format("DD/MM/YYYY");
-        console.log(taskDate);
-        console.log(currentDate);
         if (taskDate !== currentDate || index === 0) {
           currentDate = taskDate;
           return (
@@ -64,7 +62,6 @@ class TasksOrderedByDate extends Component {
   render() {
     const { classes } = this.props;
 
-    console.log(this.props.tasks);
     return (
       <div className={classes.text}>
         {this.props.tasks ? this.renderTasks() : ""}

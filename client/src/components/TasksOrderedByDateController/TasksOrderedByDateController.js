@@ -10,21 +10,22 @@ import { inject, observer } from "mobx-react";
 class TasksOrderedByDateController extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: "all",
-      selectedTasks: []
-    };
+    this.state = { value: "all", selectedTasks: [], allTasks: [] };
   }
 
   componentDidMount() {
+    this.props.projectsStore.resetTasks();
+
+    this.setState({
+      allTasks: [],
+      selectedTasks: []
+    });
     this.getAllTasks();
   }
 
   getAllTasks = () => {
     const { projectsStore } = this.props;
 
-    console.log(projectsStore.projects);
-    console.log(projectsStore.projectsLength);
     let allTasks = [];
     for (let i = 0; i < projectsStore.projects.length; i++) {
       for (let j = 0; j < projectsStore.projects[i].sections.length; j++) {
@@ -44,7 +45,6 @@ class TasksOrderedByDateController extends Component {
         }
       }
     }
-    console.log(projectsStore.allTasks);
     projectsStore.sortAllTasks();
     // projectsStore.allTasks.sort(function(a, b) {
     //   // Turn your strings into dates, and then subtract them
@@ -57,7 +57,6 @@ class TasksOrderedByDateController extends Component {
     //   }
     //   return new Date(b.completed_date) - new Date(a.completed_date);
     // });
-    console.log(projectsStore.allTasks);
     this.setState({
       tasks: projectsStore.allTasks,
       selectedTasks: projectsStore.allTasks
@@ -77,18 +76,14 @@ class TasksOrderedByDateController extends Component {
         if (this.state.tasks[i].state === event.target.value) {
           array.push(this.state.tasks[i]);
         }
-        console.log(i);
       }
     }
-    console.log(array);
     this.setState({
       selectedTasks: array
     });
   }
 
   render() {
-    console.log(this.state.selectedTasks);
-
     return (
       <React.Fragment>
         <Link to="/">back</Link>
