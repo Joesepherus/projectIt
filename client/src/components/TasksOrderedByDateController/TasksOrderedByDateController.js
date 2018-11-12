@@ -1,21 +1,19 @@
+import React, { Component } from "react";
+import "./TasksOrderedByDateController.css";
+import TasksOrderedByDate from "../TasksOrderedByDate/TasksOrderedByDate";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
-import React, { Component } from 'react';
-import './TasksOrderedByDateController.css';
-import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
-
-@inject('projectsStore')
+@inject("projectsStore")
 @observer
 class TasksOrderedByDateController extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      value: 'all',
-      selectedTasks: [],
-    }
+      value: "all",
+      selectedTasks: []
+    };
   }
 
   componentDidMount() {
@@ -25,37 +23,46 @@ class TasksOrderedByDateController extends Component {
   getAllTasks = () => {
     const { projectsStore } = this.props;
 
-    console.log(projectsStore.projects)
-    console.log(projectsStore.projectsLength)
+    console.log(projectsStore.projects);
+    console.log(projectsStore.projectsLength);
     let allTasks = [];
     for (let i = 0; i < projectsStore.projects.length; i++) {
       for (let j = 0; j < projectsStore.projects[i].sections.length; j++) {
         if (projectsStore.projects[i].sections[j].tasks !== undefined) {
-          for (let k = 0; k < projectsStore.projects[i].sections[j].tasks.length; k++) {
+          for (
+            let k = 0;
+            k < projectsStore.projects[i].sections[j].tasks.length;
+            k++
+          ) {
+            let newTask = Object.assign(
+              projectsStore.projects[i].sections[j].tasks[k]
+            );
+            newTask.section = projectsStore.projects[i].sections[j];
+            projectsStore.setTasks(newTask);
             allTasks.push(projectsStore.projects[i].sections[j].tasks[k]);
           }
         }
       }
     }
-    console.log(allTasks);
-
-    allTasks.sort(function (a, b) {
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      if(a.completed_date === '') {
-        return 1;
-      }
-      if(b.completed_date === '') {
-        return -1;
-      }
-      return new Date(b.completed_date) - new Date(a.completed_date);
-    });
-    console.log(allTasks);
+    console.log(projectsStore.allTasks);
+    projectsStore.sortAllTasks();
+    // projectsStore.allTasks.sort(function(a, b) {
+    //   // Turn your strings into dates, and then subtract them
+    //   // to get a value that is either negative, positive, or zero.
+    //   if (a.completed_date === "") {
+    //     return 1;
+    //   }
+    //   if (b.completed_date === "") {
+    //     return -1;
+    //   }
+    //   return new Date(b.completed_date) - new Date(a.completed_date);
+    // });
+    console.log(projectsStore.allTasks);
     this.setState({
-      tasks: allTasks,
-      selectedTasks: allTasks
-    })
-  }
+      tasks: projectsStore.allTasks,
+      selectedTasks: projectsStore.allTasks
+    });
+  };
 
   change(event) {
     this.setState({
@@ -63,10 +70,9 @@ class TasksOrderedByDateController extends Component {
     });
 
     let array = [];
-    if ('all' === event.target.value) {
+    if ("all" === event.target.value) {
       array = Object.assign([], this.state.tasks);
-    }
-    else {
+    } else {
       for (let i = 0; i < this.state.tasks.length; i++) {
         if (this.state.tasks[i].state === event.target.value) {
           array.push(this.state.tasks[i]);
@@ -85,21 +91,19 @@ class TasksOrderedByDateController extends Component {
 
     return (
       <React.Fragment>
-        <Link to='/'>back</Link>
-        <div className='TasksOrderedByDateController'>
+        <Link to="/">back</Link>
+        <div className="TasksOrderedByDateController">
           <select onChange={this.change.bind(this)} value={this.state.value}>
             <option value="all">all</option>
             <option value="completed">completed</option>
             <option value="inprogress">inprogress</option>
             <option value="removed">removed</option>
           </select>
-          <TasksOrderedByDate
-            tasks={this.state.selectedTasks}
-          />
+          <TasksOrderedByDate tasks={this.state.selectedTasks} />
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default TasksOrderedByDateController
+export default TasksOrderedByDateController;

@@ -1,86 +1,110 @@
-import { observable, action, computed } from 'mobx';
-import axios from 'axios';
-import { addProject, deleteProject } from '../actions/projectsActions';
+import { observable, action, computed } from "mobx";
+import axios from "axios";
+import { addProject, deleteProject } from "../actions/projectsActions";
 // import * as constants from '../../constants/constants';
 // import { toast } from 'react-toastify';
 // import { toJS } from 'mobx';
 
 export class AccountStore {
-  @observable projects = [];
-  @observable project;
-  @observable projectsLength;
-  @observable inputs = {
-    title: '',
-    description: ''
+  @observable
+  projects = [];
+  @observable
+  project = {
+    title: "",
+    description: "",
+    sections: []
   };
+  @observable
+  projectsLength;
+  @observable
+  inputs = {
+    title: "",
+    description: ""
+  };
+  @observable
+  allTasks = [];
 
-  @action resetInputs() {
-    this.inputs = {}
-    this.sectionInputs = {}
-    this.taskInputs = {}
+  @action
+  resetInputs() {
+    this.inputs = {};
+    this.sectionInputs = {};
+    this.taskInputs = {};
   }
 
-  @action handleChange(type, value) {
+  @action
+  handleChange(type, value) {
     this.inputs[type] = value;
   }
 
   // projects
-  @action getProjects() {
-    return axios.get("/api/project")
+  @action
+  getProjects() {
+    return axios
+      .get("/api/project")
       .then(response => {
         console.log(response);
         this.projects = response.data;
         this.projectsLength = response.data.length;
         return response;
-      }).catch(error => {
+      })
+      .catch(error => {
         console.log(error);
-        throw (error);
+        throw error;
       });
   }
 
-  @action getProject() {
-    return axios.get("/api/project/" + this.project._id)
+  @action
+  getProject(projectId) {
+    return axios
+      .get("/api/project/" + projectId)
       .then(response => {
         console.log(response);
         this.project = response.data;
         // this.setSectionId(this.project.sections.length);
         return response;
-      }).catch(error => {
+      })
+      .catch(error => {
         console.log(error);
-        throw (error);
+        throw error;
       });
   }
 
-  @action addProject(project) {
-    console.log(project)
+  @action
+  addProject(project) {
+    console.log(project);
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.post("/api/project", {
-          project
-        })
-          .then(function (response) {
+        axios
+          .post("/api/project", {
+            project
+          })
+          .then(function(response) {
             console.log(response);
             return response;
-          }).catch(function (error) {
+          })
+          .catch(function(error) {
             console.log(error);
           })
-      )
-    })
-    promise.then((response) => {
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
-  @action selectProject(project) {
+  @action
+  selectProject(project) {
     this.project = project;
     // this.setSectionId(project.sections.length);
   }
 
-  @action updateProject(project) {
-    return axios.put('api/project/' + project._id, {
-      project: project
-    })
+  @action
+  updateProject(project) {
+    return axios
+      .put("api/project/" + project._id, {
+        project: project
+      })
       .then(response => {
         console.log(response);
         return response;
@@ -88,13 +112,15 @@ export class AccountStore {
       .catch(error => {
         console.log(error);
         return error;
-      })
+      });
   }
 
-  @action deleteProject(project) {
-    return axios.delete('api/project/deleted/' + project._id, {
-      project: project
-    })
+  @action
+  deleteProject(project) {
+    return axios
+      .delete("api/project/deleted/" + project._id, {
+        project: project
+      })
       .then(response => {
         console.log(response);
         return response;
@@ -106,94 +132,105 @@ export class AccountStore {
   }
 
   //  sections
-  @observable sectionInputs = {
-    title: ''
+  @observable
+  sectionInputs = {
+    title: ""
   };
 
-  @action handleSectionChange(type, value) {
+  @action
+  handleSectionChange(type, value) {
     this.sectionInputs[type] = value;
   }
 
-  @action setSectionId(id) {
+  @action
+  setSectionId(id) {
     console.log(id);
     this.sectionInputs.id = id;
   }
 
-  @action addSection(section) {
+  @action
+  addSection(section) {
     this.project.sections.push(section);
-    console.log(this.project)
-    console.log(section)
+    console.log(this.project);
+    console.log(section);
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
-          }));
-    })
-    promise.then((response) => {
+          })
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
-  @action updateSection(section) {
+  @action
+  updateSection(section) {
     console.log(section);
-    let found = this.project.sections.findIndex(function (element) {
-      return element.id === section.id
+    let found = this.project.sections.findIndex(function(element) {
+      return element.id === section.id;
     });
     console.log(found);
 
     this.project.sections[found] = section;
 
-
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
           })
-      )
-    })
-    promise.then((response) => {
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
-  @action deleteSection(section) {
+  @action
+  deleteSection(section) {
     console.log(section.id);
-    let found = this.project.sections.findIndex(function (element) {
-      return element.id === section.id
+    let found = this.project.sections.findIndex(function(element) {
+      return element.id === section.id;
     });
     console.log(found);
 
     this.project.sections.splice(found, 1);
 
-
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
           })
-      )
-    })
-    promise.then((response) => {
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
@@ -201,123 +238,150 @@ export class AccountStore {
 
   // tasks
 
-  @observable taskInputs = {
-    title: ''
+  @observable
+  taskInputs = {
+    title: ""
   };
 
-  @action handleTaskChange(type, value) {
+  @action
+  handleTaskChange(type, value) {
     this.taskInputs[type] = value;
   }
 
-  @action addTask(section, task) {
-    let foundSectionIndex = this.project.sections.findIndex(function (element) {
-      return element.id === section.id
+  @action
+  addTask(section, task) {
+    let foundSectionIndex = this.project.sections.findIndex(function(element) {
+      return element.id === section.id;
     });
     if (this.project.sections[foundSectionIndex].tasks === undefined) {
       task.id = 0;
       this.project.sections[foundSectionIndex].tasks = [];
-    }
-    else {
+    } else {
       task.id = this.project.sections[foundSectionIndex].tasks.length;
     }
     this.project.sections[foundSectionIndex].tasks.push(task);
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
-          }));
-    })
-    promise.then((response) => {
+          })
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
-  @action deleteTask(task, section) {
+  @action
+  deleteTask(task, section) {
     console.log(this.project);
     console.log(section);
     console.log(task);
-    let foundSectionIndex = this.project.sections.findIndex(
-      function (element) {
-        console.log(element.id)
-        console.log(section.id)
-        return element.id === section.id
-      });
-    let foundTaskIndex = this.project.sections[foundSectionIndex].tasks.findIndex(
-      function (element) {
-        return element.id === task.id
-      });
+    let foundSectionIndex = this.project.sections.findIndex(function(element) {
+      console.log(element.id);
+      console.log(section.id);
+      return element.id === section.id;
+    });
+    let foundTaskIndex = this.project.sections[
+      foundSectionIndex
+    ].tasks.findIndex(function(element) {
+      return element.id === task.id;
+    });
     console.log(foundSectionIndex);
     console.log(foundTaskIndex);
 
     this.project.sections[foundSectionIndex].tasks.splice(foundTaskIndex, 1);
 
-
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
           })
-      )
-    })
-    promise.then((response) => {
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
-  @action updateTask(task, section) {
+  @action
+  updateTask(task, section) {
     console.log(this.project);
     console.log(section);
     console.log(task);
-    let foundSectionIndex = this.project.sections.findIndex(
-      function (element) {
-        console.log(element.id)
-        console.log(section.id)
-        return element.id === section.id
-      });
-    let foundTaskIndex = this.project.sections[foundSectionIndex].tasks.findIndex(
-      function (element) {
-        return element.id === task.id
-      });
+    let foundSectionIndex = this.project.sections.findIndex(function(element) {
+      console.log(element.id);
+      console.log(section.id);
+      return element.id === section.id;
+    });
+    let foundTaskIndex = this.project.sections[
+      foundSectionIndex
+    ].tasks.findIndex(function(element) {
+      return element.id === task.id;
+    });
     console.log(foundSectionIndex);
     console.log(foundTaskIndex);
 
-    this.project.sections[foundSectionIndex]
-      .tasks[foundTaskIndex] = task;
-
+    this.project.sections[foundSectionIndex].tasks[foundTaskIndex] = task;
 
     let promise = new Promise((resolve, reject) => {
       resolve(
-        axios.put("/api/project/" + this.project._id, {
-          project: this.project
-        })
+        axios
+          .put("/api/project/" + this.project._id, {
+            project: this.project
+          })
           .then(response => {
             console.log(response);
             return response;
-          }).catch(error => {
+          })
+          .catch(error => {
             console.log(error);
           })
-      )
-    })
-    promise.then((response) => {
+      );
+    });
+    promise.then(response => {
       this.getProjects();
       this.getProject();
     });
   }
 
+  @action
+  setTasks(task) {
+    this.allTasks.push(task);
+  }
+
+  @action
+  sortAllTasks() {
+    this.allTasks = this.allTasks.sort(function(a, b) {
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      if (a.completed_date === "") {
+        return 1;
+      }
+      if (b.completed_date === "") {
+        return -1;
+      }
+      return new Date(b.completed_date) - new Date(a.completed_date);
+    });
+  }
 }
 
 export default new AccountStore();
