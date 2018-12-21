@@ -4,13 +4,19 @@ import TasksOrderedByDate from "../TasksOrderedByDate/TasksOrderedByDate";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
+import moment from "moment"
 
 @inject("projectsStore")
 @observer
 class TasksOrderedByDateController extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "all", selectedTasks: [], allTasks: [] };
+    this.state = {
+      value: "all",
+      selectedTasks: [],
+      allTasks: [],
+      todaysTasks: []
+    };
   }
 
   componentDidMount() {
@@ -36,7 +42,7 @@ class TasksOrderedByDateController extends Component {
             k++
           ) {
             let newTask = Object.assign(
-              projectsStore.projects[i].sections[j].tasks[k]
+              this.props.projectsStore.projects[i].sections[j].tasks[k]
             );
             newTask.section = projectsStore.projects[i].sections[j];
             projectsStore.setTasks(newTask);
@@ -46,6 +52,8 @@ class TasksOrderedByDateController extends Component {
       }
     }
     projectsStore.sortAllTasks();
+    console.log("test")
+    this.getTodaysTaks(projectsStore.allTasks);
     // projectsStore.allTasks.sort(function(a, b) {
     //   // Turn your strings into dates, and then subtract them
     //   // to get a value that is either negative, positive, or zero.
@@ -83,7 +91,33 @@ class TasksOrderedByDateController extends Component {
     });
   }
 
+  getTodaysTaks = tasks => {
+    const { projectsStore } = this.props;
+    // #TODO: check the documentation for Date
+    console.log(tasks)
+    console.log(projectsStore.allTasks[0])
+    if (projectsStore.allTasks.length > 0) {
+      let today = moment(tasks[0].completed_date).format("DD/MM/YYYY");
+      let todaysTasks = [];
+      let i = 0;
+      console.log("today", today)
+      // newTask.section = projectsStore.projects[i].sections[j];
+      while (moment(projectsStore.allTasks[i].completed_date).format("DD/MM/YYYY") === today) {
+        todaysTasks.push(projectsStore.allTasks[i]);
+        i++;
+      }
+      this.setState({
+        todaysTasks: todaysTasks
+      });
+      return todaysTasks
+    }
+  };
+
+
+
   render() {
+    console.log("all", this.props.projectsStore.allTasks)
+    const { selectedTasks, todaysTasks } = this.state;
     return (
       <React.Fragment>
         <Link to="/">back</Link>
@@ -94,7 +128,7 @@ class TasksOrderedByDateController extends Component {
             <option value="inprogress">inprogress</option>
             <option value="removed">removed</option>
           </select>
-          <TasksOrderedByDate tasks={this.state.selectedTasks} />
+          <TasksOrderedByDate tasks={selectedTasks} todaysTasks={todaysTasks} />
         </div>
       </React.Fragment>
     );

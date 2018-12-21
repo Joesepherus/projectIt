@@ -11,7 +11,8 @@ const styles = theme => ({
     fontSize: 14,
     fontWeight: 400,
     textAlign: "center",
-    color: "#fff"
+    color: "#fff",
+    padding: 20
   }
 });
 
@@ -35,8 +36,8 @@ class TasksOrderedByDate extends Component {
               {task.completed_date !== "" ? (
                 <p>{taskDate}</p>
               ) : (
-                <p>In progress</p>
-              )}
+                  <p>In progress</p>
+                )}
               <p>
                 {task.completed_date !== ""
                   ? moment(task.completed_date).format("hh:mm A")
@@ -59,12 +60,53 @@ class TasksOrderedByDate extends Component {
     }
   };
 
+  renderTodaysTasks = () => {
+    const { todaysTasks } = this.props;
+    console.log("todaysTasks", todaysTasks)
+    if (todaysTasks.length > 0) {
+      let helper = [{
+        section: todaysTasks[0].section.title,
+        tasks: []
+      }]
+
+      todaysTasks.map(task => {
+        let found = false
+        helper.map(help => {
+          if (help.section === task.section.title) {
+            help.tasks.push(task)
+            found = true
+          }
+        })
+        if (!found) {
+          helper.push({ section: task.section.title, tasks: [] })
+          helper[helper.length - 1].tasks.push(task)
+        }
+
+        //   if (prevSection !== task.section.title) {
+        //     prevSection = task.section.title;
+        //     return <span><br></br><br></br><strong>{task.section.title}</strong>{" -- " + task.title + "; "}</span>;
+        //   } else {
+        //     return <span>{task.title + "; "}</span>;
+        //   }
+        // });
+      })
+      return helper.map(help => {
+        return <div><span><br></br><br></br><strong>{help.section}</strong>{" -- "}</span>
+          {help.tasks.map(task => {
+            return <span>{task.title + '; '}</span>
+          })}
+        </div>
+      })
+    }
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.text}>
-        {this.props.tasks ? this.renderTasks() : ""}
+        {this.props.todaysTasks ? <div><hr></hr>{this.renderTodaysTasks()}<hr></hr></div> : undefined}
+        {this.props.tasks ? this.renderTasks() : undefined}
       </div>
     );
   }

@@ -47,7 +47,6 @@ console.log("Starting application");
 
 // DB SETUP
 MONGOLAB_URI = process.env.MONGOLAB_URI_PROJECTIT;
-
 console.log("Initializing connection to MongoDB");
 mongoose.connect(MONGOLAB_URI, function (error) {
   if (error) console.error(error);
@@ -70,14 +69,14 @@ app.get('/api/project', function (req, res) {
 })
 
 // display a problem with a certain ID
-app.get('/api/project/:id', function(req, res){
-	Project.getProjectById(req.params.id, 
-		function(err, project){
-		if(err){
-			throw err;
-		}
-		res.json(project);
-	});
+app.get('/api/project/:id', function (req, res) {
+  Project.getProjectById(req.params.id,
+    function (err, project) {
+      if (err) {
+        throw err;
+      }
+      res.json(project);
+    });
 })
 
 // add a new project
