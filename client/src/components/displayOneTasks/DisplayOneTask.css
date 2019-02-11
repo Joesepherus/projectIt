@@ -28,7 +28,8 @@
 
 .text {
   font-size: 14 !important;
-  font-weight: 400 !important; }
+  font-weight: 400 !important;
+  margin: 0px !important; }
 
 .completedText {
   font-weight: 300 !important; }

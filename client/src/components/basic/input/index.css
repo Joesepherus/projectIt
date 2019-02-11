@@ -142,7 +142,7 @@ body {
 
 .input-label {
   color: #777777 !important;
-  letter-spacing: .15px;
+  letter-spacing: 0.15px;
   font-size: 1rem !important;
   top: 3px !important;
   font-weight: 100 !important;
@@ -150,7 +150,8 @@ body {
 
 .input-input {
   color: #777777 !important;
-  font-weight: 400; }
+  font-weight: 400;
+  margin: 0px !important; }
 
 .input-input::after {
   border-bottom-color: #777777 !important; }

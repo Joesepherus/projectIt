@@ -379,6 +379,13 @@ export class AccountStore {
       action: action
     }
   }
+
+  // ===== ADD NEW TASK INPUT =====
+  @observable input = []
+  @action
+  setInput(input, index) {
+    this.input[index] = input
+  }
 }
 
 export default new AccountStore()

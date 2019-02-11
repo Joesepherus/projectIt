@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { mdiCheck, mdiTrashCanOutline } from '@mdi/js'
 import CustomIcon from '../basic/CustomIcon/CustomIcon'
+import CustomInput from '../basic/input/index'
 
 const styles = theme => ({
   text: {
@@ -50,16 +51,19 @@ class DisplayOneTask extends Component {
     promise.then(response => {})
   }
 
-  handleChange = type => e => {
+  handleChange = (type, value) => {
+    let newTask = Object.assign({}, this.state.task)
+    newTask[type] = value
     this.setState({
-      [type]: e.target.value
+      task: newTask
     })
     // this.props.projectsStore.handleChange(type, e.target.value)
   }
 
   handleSubmit = e => {
     const { projectsStore, section } = this.props
-    const task = this.state.task
+    const task = Object.assign({}, this.state.task)
+    console.log('task: ', task)
 
     if (task.title !== '') {
       let promise = new Promise((resolve, reject) => {
@@ -150,6 +154,16 @@ class DisplayOneTask extends Component {
     this.props.projectsStore.setDialog(type, content, index)
   }
 
+  handlePressedButton = e => {
+    this.handleSubmit()
+    console.log(
+      'this.props.projectsStore.input: ',
+      this.props.projectsStore.input
+    )
+    this.props.projectsStore.input[this.props.sectionId].focus()
+    console.log('[this.props.sectionId]: ', this.props.sectionId)
+  }
+
   render() {
     const { classes, projectsStore } = this.props
 
@@ -194,42 +208,28 @@ class DisplayOneTask extends Component {
             cursor: 'pointer'
           }}
         >
-          <p
-          // onMouseEnter={this.isHovering.bind(this)}
-          // onMouseLeave={this.isHovering.bind(this)}
-          >
-            {/* <span
-              aria-hidden="true"
-              onClick={this.completeTask.bind(this)}
-              className={' hovering'}
-            >
-              ✓
-            </span> */}
-            {/* {this.state.completed_date !== '' && <b>DONE </b>} */}
-            {this.state.task.completed_date !== ''}
-            <TextField
-              type="text"
-              placeholder="title"
-              value={this.state.task.title}
-              onChange={this.handleChange('title')}
-              onBlur={this.handleSubmit.bind(this)}
-              className={this.state.checkFull ? 'greenColor' : 'blackColor'}
-              InputProps={{
-                disableUnderline: true,
-                className:
-                  this.state.task.completed_date !== ''
-                    ? ['text greenColor completedText']
-                    : ['text blackColor']
-              }}
-            />
-            {/* <span
-              aria-hidden="true"
-              onClick={this.deleteTask.bind(this)}
-              className={' hovering'}
-            >
-              &times;
-            </span> */}
-          </p>
+          {this.state.task.completed_date !== ''}
+          <CustomInput
+            type="text"
+            placeholder="title"
+            value={this.state.task.title}
+            change={value => this.handleChange('title', value)}
+            onBlur={this.handleSubmit.bind(this)}
+            onPressButton={this.handlePressedButton}
+            disableUnderline
+            styleInput={
+              this.state.task.completed_date !== ''
+                ? ['text greenColor completedText']
+                : ['text blackColor']
+            }
+            InputProps={{
+              disableUnderline: true,
+              className:
+                this.state.task.completed_date !== ''
+                  ? ['text greenColor completedText']
+                  : ['text blackColor']
+            }}
+          />
         </div>
         <div
           style={{

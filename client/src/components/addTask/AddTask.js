@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import './AddTask.css'
 import { Card, Input } from 'semantic-ui-react'
-import { inject, observer } from 'mobx-react';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import { spacing } from '../../styles/base/spacing';
+import { inject, observer } from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import { spacing } from '../../styles/base/spacing'
 
 const styles = theme => ({
   text: {
     fontSize: 14,
-    fontWeight: 200,
-  },
+    fontWeight: 200
+  }
 })
 
 @inject('projectsStore')
@@ -20,13 +20,13 @@ class AddTask extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: '',
+      title: ''
     }
   }
 
   componentWillUnmount() {
-    const { projectsStore } = this.props;
-    projectsStore.resetInputs();
+    const { projectsStore } = this.props
+    projectsStore.resetInputs()
   }
 
   handleChange = type => e => {
@@ -36,7 +36,7 @@ class AddTask extends Component {
   }
 
   resetInputs = (...inputs) => {
-    inputs.map((input) =>{
+    inputs.map(input => {
       this.setState({
         [input]: ''
       })
@@ -44,35 +44,47 @@ class AddTask extends Component {
   }
 
   handleSubmit(e) {
-    const { projectsStore, section } = this.props;
-    let task = this.state;
+    const { projectsStore, section } = this.props
+    let task = this.state
 
     if (this.state.title !== '') {
-      task.create_date = new Date();
-      task.completed_date = '';
+      task.create_date = new Date()
+      task.completed_date = ''
       task.state = 'inprogress'
-      projectsStore.addTask(section, task);
+      projectsStore.addTask(section, task)
     }
-    this.resetInputs('title');
+    this.resetInputs('title')
+  }
+
+  componentDidMount() {
+    this.props.projectsStore.setInput(this.input, this.props.index)
+  }
+
+  handlePressedButton = e => {
+    if (e.key === 'Enter') {
+      this.handleSubmit()
+    }
   }
 
   render() {
-    const { projectsStore, classes } = this.props;
+    const { projectsStore, classes } = this.props
 
     return (
-      <div className='AddTask'>
+      <div className="AddTask">
         <TextField
-          type='text'
-          placeholder='title'
+          type="text"
+          placeholder="title"
           value={this.state.title}
           onChange={this.handleChange('title')}
           onBlur={this.handleSubmit.bind(this)}
           className={classes.textField}
+          inputRef={input => (this.input = input)}
+          onKeyPress={this.handlePressedButton}
           InputProps={{
             disableUnderline: true,
             classes: {
-              input: classes.text,
-            },
+              input: classes.text
+            }
           }}
         />
       </div>
@@ -80,4 +92,4 @@ class AddTask extends Component {
   }
 }
 
-export default withStyles(styles)(AddTask);
+export default withStyles(styles)(AddTask)

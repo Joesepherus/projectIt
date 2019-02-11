@@ -3,7 +3,7 @@ import React from 'react'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
-import { regexes } from '../../../functions/regexes'
+// import { regexes } from '../../../functions/regexes'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { withStyles } from '@material-ui/core/styles'
 import './index.css'
@@ -25,14 +25,14 @@ class CustomInput extends React.Component {
   }
 
   onChange = value => {
-    console.log(value)
+    console.log('value.target.value', value.target.value)
     this.setState(
       {
         value: value.target.value
       },
       () => {
         if (this.props.change) {
-          this.props.change(value)
+          this.props.change(this.state.value)
         }
       }
     )
@@ -48,32 +48,32 @@ class CustomInput extends React.Component {
     return this.state.value
   }
 
-  getValid = regex => {
-    let return_ = {
-      success: false,
-      data: null
-    }
-    return_.data = this.state.value
-    if (regex === 'pass') {
-      return_.success = !!this.state.value.match(regexes.password)
-      return return_
-      //return !!this.state.value.match(regexes.password);
-    } else if (regex === 'email') {
-      return_.success = !!this.state.value.match(regexes.email)
-      return return_
-      //return !!this.state.value.match(regexes.email);
-    }
-  }
+  // getValid = regex => {
+  //   let return_ = {
+  //     success: false,
+  //     data: null
+  //   }
+  //   return_.data = this.state.value
+  //   if (regex === 'pass') {
+  //     return_.success = !!this.state.value.match(regexes.password)
+  //     return return_
+  //     //return !!this.state.value.match(regexes.password);
+  //   } else if (regex === 'email') {
+  //     return_.success = !!this.state.value.match(regexes.email)
+  //     return return_
+  //     //return !!this.state.value.match(regexes.email);
+  //   }
+  // }
 
-  getValidateValue = regex => {
-    if (regex === 'pass') {
-      //console.log('pass')
-      //console.log(this.state.value)
-      return !!this.state.value.match(regexes.password)
-    } else if (regex === 'email') {
-      return !!this.state.value.match(regexes.email)
-    }
-  }
+  // getValidateValue = regex => {
+  //   if (regex === 'pass') {
+  //     //console.log('pass')
+  //     //console.log(this.state.value)
+  //     return !!this.state.value.match(regexes.password)
+  //   } else if (regex === 'email') {
+  //     return !!this.state.value.match(regexes.email)
+  //   }
+  // }
 
   handlePressedButton = e => {
     if (e.key === 'Enter') {
@@ -134,9 +134,10 @@ class CustomInput extends React.Component {
           disableUnderline={this.props.disableUnderline}
           // placeholder={this.props.placeholder}
           classes={{
-            underline: classes.underline,
+            // underline: classes.underline,
             // placeholder: "input-input",
-            input: this.props.styleInput
+            input: this.props.styleInput,
+            inputBase: this.props.styleInput
           }}
           onClick={this.onClick}
         >
@@ -150,4 +151,4 @@ class CustomInput extends React.Component {
   }
 }
 
-export default withStyles(styles)(CustomInput)
+export default CustomInput
