@@ -1,0 +1,82 @@
+@import '../../../index.scss';
+
+
+.subtitle {
+    font-size: 1.5rem;
+    line-height: 40px;
+    color: $black;
+    padding-left: 24px;
+}
+
+.list-tabs {
+    border-bottom: none;
+    height: 52px;
+    padding-left: 0px;
+    padding-right: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    
+
+    div[role="tablist"] {
+        height: 50px;
+        overflow: hidden;
+    }
+}
+
+.orangeIndicator {
+    background-color: $primary !important;
+}
+
+button.tab {
+    min-height: 32px;
+    margin-top: 20px;
+    min-width: 31px;
+}
+
+.tab span {
+    text-transform: none;
+    font-size: .875rem;
+    line-height: 1;
+    font-weight: 400;
+    padding-bottom: 12px;
+}
+
+button.tab[aria-selected=true] {
+    color: $primary !important;
+}
+/*
+span[class^='TabIndicator'] {
+    background-color: $primary !important;
+}*/
+
+.close {
+    align-self: flex-end;
+}
+.close:hover {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1200px) {
+    div[class*='scrollButton'] {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .list-tabs {
+        padding-right: 0;
+        //width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .list-tabs {
+        // width: 360px;
+    }
+    .graph-box {
+        .list-tabs {
+            width: calc(100% - 40px);
+        }
+    }
+}

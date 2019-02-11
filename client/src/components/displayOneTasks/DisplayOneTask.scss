@@ -1,33 +1,49 @@
-
 .displayAllTasks .DisplayOneTask p span:nth-child(1) {
-    float: left;
-    padding-right: 10px;
-    font-size: 20px;
-    // position: absolute;
-    left: 110%;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
-    color: black;
-    top: 15px;
-  }
+  float: left;
+  padding-right: 10px;
+  font-size: 20px;
+  // position: absolute;
+  left: 110%;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  color: black;
+  top: 15px;
+}
 
-  .displayAllTasks .DisplayOneTask p span:nth-child(2) {
-    float: right;
-    padding-right: 10px;
-    font-size: 20px;
-    // position: absolute;
-    left: 110%;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
-    color: black;
-    top: 15px;
-  }
-  
-.App .displayAllTasks .DisplayOneTask span.hovering  {
+.displayAllTasks .DisplayOneTask p span:nth-child(2) {
+  float: right;
+  padding-right: 10px;
+  font-size: 20px;
+  // position: absolute;
+  left: 110%;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  color: black;
+  top: 15px;
+}
+
+.App .displayAllTasks .DisplayOneTask span.hovering {
   transition: 1s;
   left: 90%;
   visibility: visible;
   opacity: 1;
+}
+
+.text {
+  font-size: 14 !important;
+  font-weight: 400 !important;
+}
+
+.completedText {
+  font-weight: 300 !important;
+}
+
+.greenColor {
+  color: #1dc125 !important;
+}
+
+.blackColor {
+  color: #c60ddb !important;
 }

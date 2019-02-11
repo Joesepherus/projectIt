@@ -1,102 +1,108 @@
-import React, { Component } from "react";
-import "./App.css";
-import HomeController from "./components/HomeController/HomeController";
-import { Switch, Route } from "react-router-dom";
-import LoginController from "./components/loginController/LoginController";
-import AddProjectController from "./components/addProjectController/AddProjectController";
-import ProjectDetail from "./components/projectDetail/ProjectDetail";
-import axios from "axios";
-import TasksOrderedByDate from "./components/TasksOrderedByDate/TasksOrderedByDate";
-import TasksOrderedByDateController from "./components/TasksOrderedByDateController/TasksOrderedByDateController";
-import Main from "./components/Main/Main";
+import React, { Component } from 'react'
+import './App.css'
+import HomeController from './components/HomeController/HomeController'
+import { Switch, Route, withRouter } from 'react-router-dom'
+import LoginController from './components/loginController/LoginController'
+import AddProjectController from './components/addProjectController/AddProjectController'
+import ProjectDetail from './components/projectDetail/ProjectDetail'
+import axios from 'axios'
+import TasksOrderedByDate from './components/TasksOrderedByDate/TasksOrderedByDate'
+import TasksOrderedByDateController from './components/TasksOrderedByDateController/TasksOrderedByDateController'
+import Main from './components/Main/Main'
+import { inject, observer } from 'mobx-react'
+import CustomDialog from './components/complex/CustomDialog/CustomDialog'
+import CustomSnackbar from './components/complex/CustomSnackbar/CustomSnackbar'
+import projectsStore from './stores/projectsStore'
 
+@inject('projectsStore')
+@observer
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       sections: [],
-      selectedProject: "",
+      selectedProject: '',
       projects: [
         {
-          title: "project1",
-          description: "lplp",
+          title: 'project1',
+          description: 'lplp',
           sections: [
             {
-              description: "aaaa"
+              description: 'aaaa'
             },
             {
-              description: "bbbb"
+              description: 'bbbb'
             }
           ]
         }
       ]
-    };
+    }
   }
 
   selectProject = project => {
-    let self = this;
+    let self = this
     axios
-      .put("/api/project/" + project._id, project)
-      .then(function (response) {
+      .put('/api/project/' + project._id, project)
+      .then(function(response) {
         self.setState({
           selectedProject: response.data
-        });
-        self.props.history.push("/project");
+        })
+        self.props.history.push('/project')
       })
-      .catch(function (error) { });
-  };
+      .catch(function(error) {})
+  }
 
   addNewTask = (title, sectionId, taskId) => {
     axios
-      .post("/api/task/", {
+      .post('/api/task/', {
         title: title,
         sectionId: sectionId,
         id: taskId
       })
-      .then(function (response) { })
-      .catch(function (error) { });
-    this.selectProject(this.state.selectedProject);
-  };
+      .then(function(response) {})
+      .catch(function(error) {})
+    this.selectProject(this.state.selectedProject)
+  }
 
   addNewSection = (title, projectId, sectionId) => {
     axios
-      .post("/api/section/", {
+      .post('/api/section/', {
         title: title,
         projectId: projectId,
         id: sectionId
       })
-      .then(function (response) { })
-      .catch(function (error) { });
-    this.selectProject(this.state.selectedProject);
-  };
+      .then(function(response) {})
+      .catch(function(error) {})
+    this.selectProject(this.state.selectedProject)
+  }
 
   removeSection = sectionId => {
-    let newProject = Object.assign({}, this.state.selectedProject);
-    newProject.sections.plice(sectionId, 1);
+    let newProject = Object.assign({}, this.state.selectedProject)
+    newProject.sections.plice(sectionId, 1)
     axios
-      .put("/api/project/" + this.state.selectedProject._id, newProject)
-      .then(function (response) { })
-      .catch(function (error) { });
+      .put('/api/project/' + this.state.selectedProject._id, newProject)
+      .then(function(response) {})
+      .catch(function(error) {})
     // this.getAllProjects();
-  };
+  }
 
   removeTask = (taskId, sectionId) => {
-    let newProject = Object.assign({}, this.state.selectedProject);
-    newProject.sections[sectionId].tasks.splice(taskId, 1);
+    let newProject = Object.assign({}, this.state.selectedProject)
+    newProject.sections[sectionId].tasks.splice(taskId, 1)
     axios
-      .put("/api/project/" + this.state.selectedProject._id, newProject)
-      .then(function (response) { })
-      .catch(function (error) { });
+      .put('/api/project/' + this.state.selectedProject._id, newProject)
+      .then(function(response) {})
+      .catch(function(error) {})
     // this.getAllProjects();
-  };
+  }
 
   completeTask = task => {
     axios
-      .put("/api/task/completed/" + task._id, task)
-      .then(function (response) { })
-      .catch(function (error) { });
+      .put('/api/task/completed/' + task._id, task)
+      .then(function(response) {})
+      .catch(function(error) {})
     // this.getAllProjects();
-  };
+  }
 
   render() {
     return (
@@ -114,9 +120,21 @@ class App extends Component {
           history={this.props.history}
           selectProject={this.selectProject}
         />
+        <CustomDialog
+          open={projectsStore.dialogData.open}
+          type={projectsStore.dialogData.type}
+          content={projectsStore.dialogData.content}
+          index={projectsStore.dialogData.index}
+          onChange={this.onChange}
+          action={projectsStore.dialogData.action}
+        />
+        <CustomSnackbar
+          message={this.props.projectsStore.dataSnackbar.msg}
+          open={this.props.projectsStore.dataSnackbar.open}
+        />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default withRouter(App)

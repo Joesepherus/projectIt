@@ -27,3 +27,6 @@
   left: 90%;
   visibility: visible;
   opacity: 1; }
+
+.allTasksCard {
+  padding: 0px !important; }

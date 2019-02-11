@@ -1,0 +1,103 @@
+@import '../../../index.scss';
+
+.drawer > div{
+    // top: 60px;
+    width: 240px;
+    background-color: #FAFAFA;
+    border-right: none;
+    animation: resize .1s;
+    display: flex;
+    overflow: auto;
+    // border-right: 1px solid black;
+    box-shadow: 0px 0px 1px 0px inset;
+}
+
+/* .header.expanded .drawer > div{
+     top: 150px;
+ } */
+
+.active {
+    svg {
+        // fill: #FF7800;
+        fill: #26c6da;
+    }
+    span {
+        // color: #FF7800;
+        color: #26c6da;
+    }   
+}
+
+nav svg {
+    height: 1.5rem;
+    fill: rgba(0, 0, 0, 0.54);
+}
+
+.primary-text {
+    padding-left: 0px !important;
+    
+    span {
+        font-weight: 600;
+        font-size: 0.875rem !important;
+        letter-spacing: .1px;
+    }
+    
+}
+
+.list {
+    width: '100%';
+    max-width: 360,
+}
+
+.nestedListItem {
+    padding-left: 32px!important;
+}
+
+.nestedListText {
+    line-height: 1.2!important;
+    font-size: 0.9rem!important;
+}
+
+.nestedList {
+    max-height: 0;
+    transition: max-height 1.15s ease-out;
+    overflow: hidden;
+    background: #d5d5d5;
+}
+
+.nestedListFull {
+    max-height: 100px;
+    transition: max-height 1.75s ease-in;
+}
+
+.CD_AppName {
+    height: 38px;
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+}
+
+.CD_AppName--heading {
+    margin: 0px;
+}
+
+.CD_AppName--tiny {
+    margin: 0;
+    margin-top: 5px;
+}
+
+@keyframes resize {
+    from {left: -200px}
+    to {left: 0px;}
+}
+
+
+@media only screen and (max-width: 600px){
+    .drawer {
+
+        nav {
+            height: 100%;
+            padding-top: 0;
+        }
+    }
+
+}

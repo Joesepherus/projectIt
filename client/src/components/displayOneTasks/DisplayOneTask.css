@@ -25,3 +25,16 @@
   left: 90%;
   visibility: visible;
   opacity: 1; }
+
+.text {
+  font-size: 14 !important;
+  font-weight: 400 !important; }
+
+.completedText {
+  font-weight: 300 !important; }
+
+.greenColor {
+  color: #1dc125 !important; }
+
+.blackColor {
+  color: #c60ddb !important; }

@@ -1,0 +1,20 @@
+@import "../../../index.scss";
+
+.CS_label {
+    font-family: 'Roboto', sans-serif;
+    color: #777777!important;
+    font-size: 1rem!important; 
+    font-weight: 300!important;
+    padding-left: 0px!important;
+}
+
+.switchBase {
+    &.checked {
+        color: $primary!important;
+    } 
+/*     color: $anakiwa !important; */
+}
+
+.switch-bar {
+    background-color: $anakiwa !important;
+}

@@ -1,62 +1,62 @@
-import React, { Component } from "react";
-import "./Section.css";
-import DisplayAllTasks from "../displayAllTasks/DisplayAllTasks";
-import AddTask from "../addTask/AddTask";
-import { inject, observer } from "mobx-react";
-import { Card, Icon } from "semantic-ui-react";
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import { spacing } from "../../styles/base/spacing";
+import React, { Component } from 'react'
+import './Section.css'
+import DisplayAllTasks from '../displayAllTasks/DisplayAllTasks'
+import AddTask from '../addTask/AddTask'
+import { inject, observer } from 'mobx-react'
+import { Card, Icon } from 'semantic-ui-react'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import { spacing } from '../../styles/base/spacing'
 
 const styles = theme => ({
   title: {
     fontSize: 16,
     fontWeight: 400,
-    textAlign: "center"
+    textAlign: 'center'
   },
   sectionContainer: {
-    marginBottom: "30px!important"
+    marginBottom: '30px!important'
   }
-});
+})
 
-@inject("projectsStore")
+@inject('projectsStore')
 @observer
 class Section extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       ...this.props.section
-    };
+    }
   }
 
   handleChange = type => e => {
     this.setState({
       [type]: e.target.value
-    });
+    })
     // this.props.projectsStore.handleChange(type, e.target.value)
-  };
+  }
 
   handleSubmit = e => {
-    const { projectsStore } = this.props;
-    const section = this.state;
-    if (section.title !== "") {
+    const { projectsStore } = this.props
+    const section = this.state
+    if (section.title !== '') {
       let promise = new Promise((resolve, reject) => {
-        resolve(projectsStore.updateSection(section));
-      });
+        resolve(projectsStore.updateSection(section))
+      })
       promise.then(response => {
-        projectsStore.getProjects();
-      });
+        projectsStore.getProjects()
+      })
     }
-  };
+  }
 
   deleteSection = e => {
-    const { projectsStore, section } = this.props;
-    projectsStore.deleteSection(section);
-  };
+    const { projectsStore, section } = this.props
+    projectsStore.deleteSection(section)
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <div className="section">
@@ -66,7 +66,7 @@ class Section extends Component {
               type="text"
               placeholder="title"
               value={this.state.title}
-              onChange={this.handleChange("title")}
+              onChange={this.handleChange('title')}
               onBlur={this.handleSubmit.bind(this)}
               className={classes.textField}
               InputProps={{
@@ -81,6 +81,7 @@ class Section extends Component {
             </span>
           </Card.Content>
           <Card.Content
+            className="allTasksCard"
             description={
               <DisplayAllTasks
                 section={this.props.section}
@@ -98,13 +99,13 @@ class Section extends Component {
                 index={this.props.index}
               />
             ) : (
-              ""
+              ''
             )}
           </Card.Content>
         </Card>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(Section);
+export default withStyles(styles)(Section)

@@ -1,0 +1,199 @@
+/* Coolors Exported Palette - coolors.co/1e3231-00a878-437f97-6f1a07-d8f1a0 */
+/* HSL */
+/* RGB */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+a {
+  color: #000; }
+
+i {
+  font-style: normal; }
+
+/* ===== SCROLL BAR ===== */
+:-webkit-scrollbar {
+  width: 45px !important; }
+
+::-webkit-scrollbar-track {
+  border-radius: 25px !important;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 25px !important;
+  background-color: silver; }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important; }
+
+html,
+body {
+  font-family: 'Roboto', sans-serif !important;
+  color: #777777;
+  background-color: #fafafa; }
+
+#ambitasContainer {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px; }
+
+.flex {
+  display: flex;
+  flex: 1; }
+
+.flex01 {
+  flex: 0.1 !important; }
+
+.flex02 {
+  flex: 0.2 !important; }
+
+.flex03 {
+  flex: 0.3 !important; }
+
+.flex04 {
+  flex: 0.4 !important; }
+
+.flex05 {
+  flex: 0.5 !important; }
+
+.flex06 {
+  flex: 0.6 !important; }
+
+.flex07 {
+  flex: 0.7 !important; }
+
+.flex08 {
+  flex: 0.8 !important; }
+
+.flex09 {
+  flex: 0.9 !important; }
+
+.flex10 {
+  flex: 1 !important; }
+
+.flex-center {
+  display: flex;
+  justify-content: center; }
+
+.w-50 {
+  width: 50%; }
+
+.w-100 {
+  width: 100%; }
+
+.m-3 {
+  margin: 3px; }
+
+.ml-20 {
+  margin-left: 20px; }
+
+.mr-10 {
+  margin-right: 10px; }
+
+.circular-progress {
+  color: #26c6da !important;
+  left: calc(50% - 20px);
+  top: 45%;
+  position: absolute; }
+
+.space-between {
+  justify-content: space-between;
+  margin-right: 2px;
+  margin-left: 2px; }
+
+.justify-right {
+  justify-content: flex-end; }
+
+.CONTAINER {
+  margin: 60px 31px 0px 31px; }
+
+.CONTAINER_EXPANDED {
+  margin: 160px 31px 0px 31px; }
+
+@media (max-width: 600px) {
+  .CONTAINER {
+    margin: 60px 10px 0px 10px; }
+  .table-box th {
+    width: 200px; }
+  .table-box td {
+    padding: 0 25px; }
+  .table-box td:nth-child(1) {
+    padding: 0; }
+  .table-box th {
+    padding: 16px 25px; }
+  .dialogPaper {
+    width: 85vw !important;
+    margin: 0px !important; } }
+
+.custom-card {
+  width: 280px;
+  padding: 20px;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: row;
+  /*margin-right: 20px;
+    margin-bottom: 20px;*/
+  margin: 10px 10px !important;
+  box-sizing: border-box;
+  position: relative; }
+  .custom-card .representant-info {
+    display: flex;
+    flex-direction: column; }
+  .custom-card .representant-contact {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px; }
+    .custom-card .representant-contact p {
+      margin: 0;
+      color: #000000;
+      font-size: 1.25rem;
+      font-weight: 500; }
+    .custom-card .representant-contact span {
+      font-size: 0.875rem;
+      word-break: break-all; }
+    .custom-card .representant-contact label {
+      color: #000000; }
+    .custom-card .representant-contact a:hover {
+      color: #26c6da; }
+    .custom-card .representant-contact li {
+      padding-top: 4px; }
+  .custom-card .icon-btn {
+    position: absolute;
+    right: 0px;
+    top: 0px; }
+
+@media only screen and (min-width: 1401px) {
+  .custom-card:first-child, .custom-card:nth-child(4n+1) {
+    margin-left: 2px !important; }
+  .custom-card {
+    width: calc(25% - 18px); } }
+
+@media only screen and (max-width: 1400px) {
+  .custom-card:first-child, .custom-card:nth-child(4n) {
+    margin-left: 2px !important; }
+  .custom-card {
+    width: calc(33% - 15px); } }
+
+@media only screen and (max-width: 968px) {
+  .custom-card:nth-child(2n) {
+    margin-right: 2px !important;
+    margin-left: auto !important; }
+  .custom-card:nth-child(2n+1) {
+    margin-left: 2px !important; }
+  .custom-card {
+    width: calc(50% - 12px); } }
+
+@media only screen and (max-width: 568px) {
+  .custom-card {
+    width: calc(100%); }
+  .custom-card:nth-child(n) {
+    margin-right: 2px !important; } }

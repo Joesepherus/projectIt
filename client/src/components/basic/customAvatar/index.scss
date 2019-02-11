@@ -1,0 +1,50 @@
+@import '../../../index.scss';
+
+.image img,
+.image > div {
+    width: 160px;
+    height: 160px;
+}
+
+.image-overlay {
+    width: 160px;
+    height: 160px;
+    background-color: rgba(0,0,0,.8);
+    border-radius: 50%;
+    clip: rect(120px, 160px, 160px, 0);
+    position: absolute;
+    top: 172px;
+}
+
+.products-edit {
+    .basic-info {
+        .image-overlay {
+            margin-top: 20px;
+        }
+    }
+}
+
+.image-overlay label,
+.image-overlay span{
+    line-height: 40px;
+    font-size: .75rem;
+    color: $white;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: .4px;
+    cursor: pointer;
+}
+
+.btn-discard-img {
+    position: relative;
+    top: -160px;
+    left: 140px;
+    cursor: pointer;
+}
+
+.image {
+    height: 160px;
+}

@@ -1,0 +1,19 @@
+.CustomDialog {
+  background-color: #fdefde;
+  color: #321321;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.actionBtnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CustomDialog-TextArea {
+  width: 500px !important;
+  max-width: 100%;
+}

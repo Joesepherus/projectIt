@@ -1,0 +1,12 @@
+@import '../../../index.scss';
+
+.custom-select-select {
+    min-width: 200px;
+    &::after {
+        border-bottom: 2px solid #777777 !important;
+    }
+}
+
+label.custom-select-label{
+    color: #777777  !important;
+}

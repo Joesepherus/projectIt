@@ -1,0 +1,176 @@
+@import '../../../index.scss';
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  .contained {
+    min-width: 100px;
+  }
+}
+.contained {
+  background-color: $primary !important;
+  color: $white !important;
+  text-transform: none !important;
+  border-radius: 18px !important;
+}
+
+.outlined {
+  background-color: $transparent !important;
+  color: $primary !important;
+  border: 1px solid $primary !important;
+  text-transform: none !important;
+  box-shadow: unset !important;
+}
+
+.text {
+  background-color: $transparent !important;
+  // color: $primary !important;
+  text-transform: none !important;
+  box-shadow: unset !important;
+}
+
+.fab {
+  background-color: $primary !important;
+  color: $white !important;
+  text-transform: none !important;
+  border-radius: 50% !important;
+  min-width: 48px !important;
+  height: 48px;
+}
+
+.btn-boulder-bg {
+  background-color: $boulder !important;
+  color: $white !important;
+  text-transform: none !important;
+}
+
+.btn-gray-text {
+  color: #cccccc !important;
+  background-color: $white !important;
+  box-shadow: none !important;
+}
+
+.btn-boulder-text {
+  color: $boulder !important;
+}
+button.disabled.contained {
+  background-color: $gray !important;
+}
+
+button.disabled.contained .category,
+button.disabled.contained .tag {
+  opacity: 0.5;
+}
+
+.btn-white-bg-red-text {
+  color: red !important;
+  text-transform: none;
+  padding-left: 0;
+  font-weight: 500;
+  background-color: $white !important;
+  box-shadow: none !important;
+}
+
+.btn-white-bg-red-text:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.btn-white-bg {
+  color: $primary !important;
+  text-transform: none;
+  // padding-left: 0 ;
+  font-weight: 500;
+  background-color: $white !important;
+  box-shadow: none !important;
+}
+.btn-white-bg:hover {
+  //background-color: $white;
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.border-radius-18 {
+  border-radius: 18px !important;
+}
+
+.border-radius-50 {
+  border-radius: 50% !important;
+  min-width: 48px !important;
+  height: 48px;
+}
+
+.border-radius-50 svg {
+  fill: $white;
+}
+
+.border-radius-18 svg {
+  fill: $white;
+  height: 1.125rem;
+  width: 1.125rem !important;
+  margin-right: 10px;
+}
+
+.align-self-end {
+  align-self: flex-end;
+}
+
+button.btn-white-bg,
+button.contained {
+  .progressbar {
+    position: absolute;
+    left: calc(50% - 12px);
+    bottom: calc(50% - 9px);
+
+    svg {
+      color: $primary;
+    }
+  }
+}
+
+button.btn-white-bg:disabled {
+  opacity: 0.5;
+}
+
+.width-80 {
+  width: 80px;
+}
+
+.Custom_Button {
+  margin: 10px 0px;
+  padding: 10px 15px !important;
+  border-radius: 4px;
+  text-transform: uppercase !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .height-36 {
+    height: 36px !important;
+  }
+  .button-title {
+    display: none;
+  }
+
+  button.contained,
+  button.btn-boulder-bg {
+    // width: 40px;
+    width: auto;
+    // height: 40px;
+    height: auto;
+
+    svg {
+      margin-right: 0;
+    }
+  }
+
+  .border-radius-18 {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    padding: 8px !important;
+    // border-radius: 50% !important;
+
+    span {
+      width: 18px;
+    }
+  }
+}

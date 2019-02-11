@@ -1,0 +1,101 @@
+@import '../../../index.scss';
+
+.custom-card {
+    width: 280px;
+    padding: 20px;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: row;
+    /*margin-right: 20px;
+    margin-bottom: 20px;*/
+    margin: 10px 10px !important;
+    box-sizing: border-box;
+    position: relative;
+
+    
+
+    .representant-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .representant-contact {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        p {
+            margin: 0;
+            color: $black;
+            font-size:  1.25rem;
+            font-weight: 500;
+        }
+        span {
+            font-size: 0.875rem;
+            word-break: break-all;
+        }
+
+        label {
+            color: #000000;
+        }
+
+        a {
+            &:hover {
+                color: $primary;
+            }
+        }
+
+        li {
+            padding-top: 4px;
+        }
+    }
+
+    .icon-btn {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+}
+
+@media only screen and (min-width: 1401px) {
+    .custom-card:first-child, .custom-card:nth-child(4n+1) {
+        margin-left: 2px !important;
+    }
+
+    .custom-card {
+        width: calc(25% - 18px);
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .custom-card:first-child, .custom-card:nth-child(4n) {
+        margin-left: 2px !important;
+    }
+
+    .custom-card {
+        width: calc(33% - 15px);
+    }
+}
+@media only screen and (max-width: 968px) {
+    .custom-card:nth-child(2n) {
+        margin-right: 2px !important;
+        margin-left: auto !important;
+    }
+    .custom-card:nth-child(2n+1) {
+        margin-left: 2px !important;
+    }
+
+    .custom-card {
+        width: calc(50% - 12px);
+    }
+}
+
+@media only screen and (max-width: 568px) {
+    .custom-card {
+        width: calc(100%);
+    }
+
+    .custom-card:nth-child(n) {
+        margin-right: 2px !important;
+    }
+}
