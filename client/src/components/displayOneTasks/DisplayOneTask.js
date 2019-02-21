@@ -225,15 +225,15 @@ class DisplayOneTask extends Component {
             disableUnderline
             styleInput={
               this.state.task.completed_date !== ''
-                ? ['text greenColor completedText']
-                : ['text blackColor']
+                ? 'text greenColor completedText'
+                : 'text blackColor'
             }
             InputProps={{
               disableUnderline: true,
               className:
                 this.state.task.completed_date !== ''
-                  ? ['text greenColor completedText']
-                  : ['text blackColor']
+                  ? 'text greenColor completedText'
+                  : 'text blackColor'
             }}
           />
         </div>

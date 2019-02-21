@@ -24,6 +24,7 @@
     "jwks-rsa": "^1.2.1",
     "mongoose": "*",
     "npm-lifecycle": "^2.0.1",
+    "react-google-login": "^5.0.2",
     "react-manager": "^1.0.4",
     "react-semantic-ui": "^0.2.0"
   },

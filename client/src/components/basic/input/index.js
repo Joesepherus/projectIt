@@ -136,8 +136,8 @@ class CustomInput extends React.Component {
           classes={{
             // underline: classes.underline,
             // placeholder: "input-input",
-            input: this.props.styleInput,
-            inputBase: this.props.styleInput
+            input: this.props.styleInput
+            // inputBase: this.props.styleInput
           }}
           onClick={this.onClick}
         >
