@@ -11,7 +11,11 @@ class CustomImage extends Component {
   render() {
     return (
       <div className="CustomImage">
-        <img style={{ width: '25px', height: '25px' }} src={placeholderImage} />
+        <img
+          alt={this.props.alt}
+          style={{ width: '25px', height: '25px' }}
+          src={placeholderImage}
+        />
       </div>
     )
   }

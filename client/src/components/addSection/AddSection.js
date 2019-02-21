@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import './AddSection.css'
 import { Card, Input } from 'semantic-ui-react'
 import { observer, inject } from 'mobx-react'

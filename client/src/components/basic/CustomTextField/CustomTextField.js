@@ -41,13 +41,11 @@ class CustomTextField extends Component {
   }
 
   render() {
-    const { classes } = this.props
-
     return (
       <MuiThemeProvider theme={theme}>
         <TextField
           id="standard-bare"
-          inputProps={this.props.inputProps}
+          // inputProps={this.props.inputProps}
           className={'input-label ' + this.props.className}
           placeholder={this.props.placeholder}
           multiline={this.props.multiline}

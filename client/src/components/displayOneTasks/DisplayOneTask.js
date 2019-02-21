@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './DisplayOneTask.css'
 import { inject, observer } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import { mdiCheck, mdiTrashCanOutline } from '@mdi/js'
 import CustomIcon from '../basic/CustomIcon/CustomIcon'
 import CustomInput from '../basic/input/index'
@@ -69,7 +68,6 @@ class DisplayOneTask extends Component {
   handleSubmit = e => {
     const { projectsStore, section } = this.props
     const task = Object.assign({}, this.state.task)
-    console.log('task: ', task)
 
     if (task.title !== '') {
       let promise = new Promise((resolve, reject) => {
@@ -90,7 +88,6 @@ class DisplayOneTask extends Component {
   }
 
   // isHovering = () => {
-  //   console.log(this.state.isHovering);
   //   this.setState({
   //     isHovering: !this.state.isHovering
   //   })
@@ -146,7 +143,7 @@ class DisplayOneTask extends Component {
 
   // ===== DIALOG =====
   toggleDialog = (type, content, index) => {
-    // console.log('toggleDialog index: ', index)
+    // ('toggleDialog index: ', index)
 
     // this.setState(prevState => {
     //   return {
@@ -162,17 +159,10 @@ class DisplayOneTask extends Component {
 
   handlePressedButton = e => {
     this.handleSubmit()
-    console.log(
-      'this.props.projectsStore.input: ',
-      this.props.projectsStore.input
-    )
     this.props.projectsStore.input[this.props.sectionId].focus()
-    console.log('[this.props.sectionId]: ', this.props.sectionId)
   }
 
   render() {
-    const { classes, projectsStore } = this.props
-
     return (
       <div
         style={{

@@ -1,10 +1,6 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action } from 'mobx'
 import axios from 'axios'
 import { v1 as uuid } from 'uuid'
-import { addProject, deleteProject } from '../actions/projectsActions'
-// import * as constants from '../../constants/constants';
-// import { toast } from 'react-toastify';
-// import { toJS } from 'mobx';
 
 export class AccountStore {
   @observable
@@ -45,7 +41,6 @@ export class AccountStore {
       .then(response => {
         this.projects = response.data
         this.projectsLength = response.data.length
-        console.log('response: ', response)
         return response
       })
       .catch(error => {
@@ -187,7 +182,6 @@ export class AccountStore {
 
   @action
   deleteSection(section) {
-    console.log('section.id: ', section.id)
     let found = this.project.sections.findIndex(function(element) {
       return element.id === section.id
     })
@@ -262,7 +256,6 @@ export class AccountStore {
       return element.id === task.id
     })
 
-    console.log('foundTaskIndex: ', foundTaskIndex)
     this.project.sections[foundSectionIndex].tasks.splice(foundTaskIndex, 1)
 
     let promise = new Promise((resolve, reject) => {
@@ -358,7 +351,7 @@ export class AccountStore {
       open: false
     }
     // clearTimeout(timeout)
-    let timeout = setTimeout(() => {
+    setTimeout(() => {
       this.dataSnackbar = data
     }, 3000)
   }

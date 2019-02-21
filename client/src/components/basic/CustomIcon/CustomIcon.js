@@ -21,7 +21,7 @@ class CustomIcon extends Component {
           size={this.props.size ? this.props.size : 1}
           color={this.props.color ? this.props.color : 'black'}
           className={
-            this.props.className ? this.props.className : '' + ' CustomIcon'
+            this.props.className ? this.props.className : ' CustomIcon'
           }
           onClick={this.onClick}
         />

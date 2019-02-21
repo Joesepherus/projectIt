@@ -1,6 +1,5 @@
 // libraries
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -12,7 +11,6 @@ import { inject } from 'mobx-react'
 import './CustomDialog.css'
 // custom
 import CustomText from '../../basic/CustomText/CustomText'
-import CustomImage from '../../basic/CustomImage/CustomImage'
 import CustomIcon from '../../basic/CustomIcon/CustomIcon'
 import CustomTextField from '../../basic/CustomTextField/CustomTextField'
 import CustomButton from '../../basic/CustomButton'
@@ -26,7 +24,6 @@ class CustomDialog extends Component {
       scroll: 'paper',
       picture: ''
     }
-    let dialogContentRef = null
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -40,11 +37,12 @@ class CustomDialog extends Component {
         index: nextProps.index
       }
     }
+    return null
   }
 
   renderDialogHeader = () => {
-    let upperCaseType = ''
-    if (this.props.type) upperCaseType = this.props.type.toUpperCase()
+    // let upperCaseType = ''
+    // if (this.props.type) upperCaseType = this.props.type.toUpperCase()
     return (
       <DialogTitle id="scroll-dialog-title">
         {/* {this.props.translate.i18n.GLOBAL.DIALOG[upperCaseType]} */}
@@ -173,7 +171,7 @@ class CustomDialog extends Component {
   }
 
   renderDialogActions = () => {
-    const { type, translate } = this.props
+    const { type } = this.props
 
     switch (type) {
       default:
@@ -203,7 +201,7 @@ class CustomDialog extends Component {
     return (
       <div>
         <Dialog
-          open={this.props.open}
+          open={this.props.open ? this.props.open : false}
           onClose={() => this.handleClose()}
           scroll={this.state.scroll}
           aria-labelledby="scroll-dialog-title"

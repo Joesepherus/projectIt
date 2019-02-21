@@ -30,12 +30,10 @@ export default class CustomTabs extends React.Component {
 
   componentDidMount() {
     this.setState({ tabs: this.props.tabsConfig })
-    // console.log("\n\n\n\nCOMPONENT did mount", this.props.routerData.match)
     if (this.props.module === '/clients') {
       let tabs = this.props.tabsConfig
       for (let i = 0; i < tabs.length; i++) {
         let url = tabs[i].url.split('/')
-        // console.log("TAB", url[url.length-1] === this.props.routerData.match.params.tabName)
         if (
           url[url.length - 1] === this.props.routerData.match.params.tabName
         ) {
@@ -47,7 +45,6 @@ export default class CustomTabs extends React.Component {
       let tabs = this.props.tabsConfig
       for (let i = 0; i < tabs.length; i++) {
         let url = tabs[i].url.split('/')
-        // console.log("TAB", url[url.length-1] === this.props.routerData.match.params.tabName)
         if (
           url[url.length - 1] === this.props.routerData.match.params.tabName
         ) {
@@ -59,7 +56,6 @@ export default class CustomTabs extends React.Component {
       let tabs = this.props.tabsConfig
       for (let i = 0; i < tabs.length; i++) {
         let url = tabs[i].url.split('/')
-        // console.log("TAB", url[url.length-1] === this.props.routerData.match.params.tabName)
         if (
           url[url.length - 1] === this.props.routerData.match.params.tabName
         ) {

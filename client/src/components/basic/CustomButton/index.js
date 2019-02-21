@@ -8,7 +8,6 @@ import './index.css'
 export default class CustomButton extends React.Component {
   handlePressedButton = e => {
     if (e.key === 'Enter') {
-      // console.log("Pressed enter")
       this.props.onClick()
     }
   }

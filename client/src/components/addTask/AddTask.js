@@ -1,11 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import './AddTask.css'
-import { Card, Input } from 'semantic-ui-react'
 import { inject, observer } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import { spacing } from '../../styles/base/spacing'
 
 const styles = theme => ({
   text: {
@@ -40,6 +37,7 @@ class AddTask extends Component {
       this.setState({
         [input]: ''
       })
+      return ''
     })
   }
 
@@ -67,7 +65,7 @@ class AddTask extends Component {
   }
 
   render() {
-    const { projectsStore, classes } = this.props
+    const { classes } = this.props
 
     return (
       <div className="AddTask">

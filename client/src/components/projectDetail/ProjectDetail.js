@@ -129,7 +129,7 @@ class ProjectDetail extends Component {
     return (
       <div className="projectDetail">
         <Link to="/" className={classes.backLink}>
-          <i class="material-icons">arrow_back_ios</i>
+          <i className="material-icons">arrow_back_ios</i>
         </Link>
         <Link to={`/results`} className={classes.resultsLink}>
           <i>ballot</i>

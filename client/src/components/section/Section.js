@@ -3,11 +3,9 @@ import './Section.css'
 import DisplayAllTasks from '../displayAllTasks/DisplayAllTasks'
 import AddTask from '../addTask/AddTask'
 import { inject, observer } from 'mobx-react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import { spacing } from '../../styles/base/spacing'
 
 const styles = theme => ({
   title: {

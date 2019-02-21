@@ -7,7 +7,6 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/client'))
 const fs = require('fs')
 const env = process.env.NODE_ENV || 'development'
-// console.log(process.env);
 
 /* user authentication */
 // _____________________________________________________________________________

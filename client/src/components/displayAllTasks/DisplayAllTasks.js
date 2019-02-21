@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types' //ES6
-
 import './DisplayAllTasks.css'
 import DisplayOneTask from '../displayOneTasks/DisplayOneTask'
 
@@ -12,7 +10,6 @@ class DisplayAllTasks extends Component {
 
   renderAllTasks() {
     return this.props.section.tasks.map((task, i) => {
-      console.log('task.title ', task.title)
       return (
         <DisplayOneTask
           key={task.id}

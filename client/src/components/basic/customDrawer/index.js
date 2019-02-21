@@ -44,7 +44,6 @@ export default class CustomDrawer extends React.Component {
   }
 
   setPermissions() {
-    console.log('setting perms')
     this.routes = [
       {
         title: this.props.translate.i18n.GLOBAL.MENU.DASHBOARD,
@@ -52,7 +51,6 @@ export default class CustomDrawer extends React.Component {
         icon: <Icon path={mdiViewDashboard} size={1} />
       }
     ]
-    //console.log("custom drawer permisions",require('mobx').toJS(this.props.internal.user.data.permissions))
     const permissions = toJS(this.props.internal.user.data.permissions)
 
     // if (permissions.administrators) {
@@ -198,7 +196,6 @@ export default class CustomDrawer extends React.Component {
   }
 
   handleClickAway = () => {
-    console.log('cliking awayyy')
     if (this.props.internal.drawerStatus) {
       this.props.internal.drawerSwitch()
     }
@@ -217,7 +214,6 @@ export default class CustomDrawer extends React.Component {
     } else {
       this.props.internal.pushRoute(data.link)
       // this.props.internal.changeUrl(data);
-      //console.log(require('mobx').toJS(this.props.internal.data.url))
       // this.props.onClose();
       this.props.internal.drawerSwitch()
     }
@@ -226,7 +222,6 @@ export default class CustomDrawer extends React.Component {
   render() {
     let activeMoudle = '/' + toJS(this.props.internal.route.link).split('/')[1]
     activeMoudle = activeMoudle.split('?')[0]
-    console.log('activeMoudle: ', activeMoudle)
     return this.props.internal.drawerStatus ? (
       <Drawer
         variant="permanent"
@@ -251,7 +246,6 @@ export default class CustomDrawer extends React.Component {
             {/* ===== CD LIST ===== */}
             <List style={{ height: '100%' }} component="nav">
               {this.routes.map((data, i) => {
-                console.log('data.collapse ', data.collapse)
                 return (
                   <React.Fragment>
                     <ListItem

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types' //ES6
 import GoogleLogin from 'react-google-login'
 
 const responseGoogle = response => {

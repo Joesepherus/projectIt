@@ -19,14 +19,12 @@ export default class CustomAvatar extends React.Component {
   file = null
 
   fileChangedHandler = event => {
-    // console.log("fileChangedHandler", event.target.files[0])
     this.file = event.target.files[0]
     this.setState({ selectedFile: event.target.files[0] })
     this.props.internal.photoWasChanged(true)
   }
 
   uploadPhoto = () => {
-    // console.log("uploadPhoto")
     this.props.actionUploadPhoto(this.state.selectedFile)
     //this.setState({selectedFile: null})
     this.props.internal.photoWasChanged(false)
@@ -38,7 +36,6 @@ export default class CustomAvatar extends React.Component {
   }
 
   render() {
-    //console.log("EDIT IMAGE", this.props.disableEdit)
     return (
       <div className={'image'}>
         <Avatar

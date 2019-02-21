@@ -2,13 +2,8 @@ import React, { Component } from 'react'
 import './Main.css'
 import HomeController from '../HomeController/HomeController'
 import { Switch, Route } from 'react-router-dom'
-import LoginController from '../loginController/LoginController'
-import AddProjectController from '../addProjectController/AddProjectController'
 import ProjectDetail from '../projectDetail/ProjectDetail'
-import axios from 'axios'
-import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate'
 import TasksOrderedByDateController from '../TasksOrderedByDateController/TasksOrderedByDateController'
-import Link from '../../../node_modules/react-router-dom/Link'
 import { withStyles } from '@material-ui/core/styles'
 import Login from '../Login/Login'
 
@@ -29,8 +24,6 @@ class Main extends Component {
   }
 
   render() {
-    const { classes } = this.props
-
     return (
       <div className="Main">
         <Switch>

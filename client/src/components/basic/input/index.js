@@ -5,16 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 // import { regexes } from '../../../functions/regexes'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import { withStyles } from '@material-ui/core/styles'
 import './index.css'
-
-const styles = () => ({
-  underline: {
-    '&:after': {
-      borderBottomColor: '#26c6da!important'
-    }
-  }
-})
 
 class CustomInput extends React.Component {
   constructor(props) {
@@ -25,7 +16,6 @@ class CustomInput extends React.Component {
   }
 
   onChange = value => {
-    console.log('value.target.value', value.target.value)
     this.setState(
       {
         value: value.target.value
@@ -67,8 +57,6 @@ class CustomInput extends React.Component {
 
   // getValidateValue = regex => {
   //   if (regex === 'pass') {
-  //     //console.log('pass')
-  //     //console.log(this.state.value)
   //     return !!this.state.value.match(regexes.password)
   //   } else if (regex === 'email') {
   //     return !!this.state.value.match(regexes.email)
@@ -90,8 +78,6 @@ class CustomInput extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
-    //console.log("err: ",this.props.errorText)
     return (
       <FormControl className={'custom-input ' + this.props.className}>
         <InputLabel
