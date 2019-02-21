@@ -30,6 +30,12 @@ class Section extends Component {
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.section !== nextProps) {
+      return { ...nextProps.section }
+    } else return null
+  }
+
   handleChange = type => e => {
     this.setState({
       [type]: e.target.value
@@ -57,7 +63,6 @@ class Section extends Component {
 
   render() {
     const { classes } = this.props
-
     return (
       <div className="section">
         <Card className={classes.sectionContainer}>

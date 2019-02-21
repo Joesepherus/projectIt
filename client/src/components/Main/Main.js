@@ -10,6 +10,7 @@ import TasksOrderedByDate from '../TasksOrderedByDate/TasksOrderedByDate'
 import TasksOrderedByDateController from '../TasksOrderedByDateController/TasksOrderedByDateController'
 import Link from '../../../node_modules/react-router-dom/Link'
 import { withStyles } from '@material-ui/core/styles'
+import Login from '../Login/Login'
 
 const styles = theme => ({
   link: {
@@ -33,6 +34,7 @@ class Main extends Component {
     return (
       <div className="Main">
         <Switch>
+          <Route exact path="/login" render={props => <Login />} />
           <Route
             exact
             path="/"
@@ -47,8 +49,6 @@ class Main extends Component {
               />
             )}
           />
-
-          <Route exact path="/login" render={props => <LoginController />} />
 
           <Route
             exact

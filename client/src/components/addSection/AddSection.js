@@ -1,38 +1,38 @@
-import React, { Component } from "react";
-import axios from "axios";
-import "./AddSection.css";
-import { Card, Input } from "semantic-ui-react";
-import { observer, inject } from "mobx-react";
+import React, { Component } from 'react'
+import axios from 'axios'
+import './AddSection.css'
+import { Card, Input } from 'semantic-ui-react'
+import { observer, inject } from 'mobx-react'
 
-@inject("projectsStore")
+@inject('projectsStore')
 @observer
 class AddSection extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      title: ""
-    };
+      title: ''
+    }
   }
 
   componentWillUnmount() {
-    const { projectsStore } = this.props;
-    projectsStore.resetInputs();
+    const { projectsStore } = this.props
+    projectsStore.resetInputs()
   }
 
   handleChange = (type, e) => {
-    this.props.projectsStore.handleSectionChange(type, e.target.value);
-  };
+    this.props.projectsStore.handleSectionChange(type, e.target.value)
+  }
 
   handleSubmit(e) {
-    const { projectsStore } = this.props;
-    if (projectsStore.sectionInputs.title !== "") {
-      projectsStore.sectionInputs.id = projectsStore.project.sections.length;
-      this.props.projectsStore.addSection(projectsStore.sectionInputs);
+    const { projectsStore } = this.props
+    if (projectsStore.sectionInputs.title !== '') {
+      // projectsStore.sectionInputs.id = projectsStore.project.sections.length;
+      this.props.projectsStore.addSection(projectsStore.sectionInputs)
     }
   }
 
   render() {
-    const { projectsStore } = this.props;
+    const { projectsStore } = this.props
 
     return (
       <div className="addSection">
@@ -43,16 +43,16 @@ class AddSection extends Component {
               name="title"
               placeholder="title"
               value={projectsStore.sectionInputs.title}
-              onChange={this.handleChange.bind(this, "title")}
+              onChange={this.handleChange.bind(this, 'title')}
               onBlur={this.handleSubmit.bind(this)}
             />
           </Card.Content>
         </Card>
       </div>
-    );
+    )
   }
 }
 
-AddSection.propTypes = {};
+AddSection.propTypes = {}
 
-export default AddSection;
+export default AddSection

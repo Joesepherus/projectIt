@@ -88,6 +88,7 @@ class ProjectDetail extends Component {
 
   renderSections() {
     const { projectsStore } = this.props
+
     return projectsStore.project.sections.map((section, i) => (
       <Section
         key={i}
@@ -125,7 +126,6 @@ class ProjectDetail extends Component {
 
   render() {
     const { projectsStore, classes } = this.props
-
     return (
       <div className="projectDetail">
         <Link to="/" className={classes.backLink}>

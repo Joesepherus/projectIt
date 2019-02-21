@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx'
 import axios from 'axios'
+import { v1 as uuid } from 'uuid'
 import { addProject, deleteProject } from '../actions/projectsActions'
 // import * as constants from '../../constants/constants';
 // import { toast } from 'react-toastify';
@@ -44,6 +45,7 @@ export class AccountStore {
       .then(response => {
         this.projects = response.data
         this.projectsLength = response.data.length
+        console.log('response: ', response)
         return response
       })
       .catch(error => {
@@ -137,6 +139,7 @@ export class AccountStore {
 
   @action
   addSection(section) {
+    section.id = uuid()
     this.project.sections.push(section)
     let promise = new Promise((resolve, reject) => {
       resolve(
@@ -184,6 +187,7 @@ export class AccountStore {
 
   @action
   deleteSection(section) {
+    console.log('section.id: ', section.id)
     let found = this.project.sections.findIndex(function(element) {
       return element.id === section.id
     })
@@ -225,12 +229,9 @@ export class AccountStore {
     let foundSectionIndex = this.project.sections.findIndex(function(element) {
       return element.id === section.id
     })
-    if (this.project.sections[foundSectionIndex].tasks === undefined) {
-      task.id = 0
+    task.id = uuid()
+    if (this.project.sections[foundSectionIndex].tasks === undefined)
       this.project.sections[foundSectionIndex].tasks = []
-    } else {
-      task.id = this.project.sections[foundSectionIndex].tasks.length
-    }
     this.project.sections[foundSectionIndex].tasks.push(task)
     let promise = new Promise((resolve, reject) => {
       resolve(
@@ -261,6 +262,7 @@ export class AccountStore {
       return element.id === task.id
     })
 
+    console.log('foundTaskIndex: ', foundTaskIndex)
     this.project.sections[foundSectionIndex].tasks.splice(foundTaskIndex, 1)
 
     let promise = new Promise((resolve, reject) => {

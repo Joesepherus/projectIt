@@ -27,6 +27,12 @@ class DisplayOneTask extends Component {
     }
   }
 
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (prevState.task !== nextProps.task) {
+  //     return { task: { ...nextProps.task } }
+  //   } else return null
+  // }
+
   componentDidMount() {
     this.dragImg = new Image(0, 0)
     this.dragImg.src =
