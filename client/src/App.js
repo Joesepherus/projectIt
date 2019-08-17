@@ -114,6 +114,7 @@ class App extends Component {
           history={this.props.history}
           selectProject={this.selectProject}
         />
+        
         <CustomDialog
           open={projectsStore.dialogData.open}
           type={projectsStore.dialogData.type}
