@@ -12,11 +12,6 @@ class CustomText extends Component {
   render() {
     return (
       <p
-        style={[
-          styles[this.props.type],
-          styles[this.props.modified],
-          this.props.style
-        ]}
         className={
           css(styles[this.props.type], styles[this.props.modified]) +
           ' ' +
