@@ -26,7 +26,9 @@
     "npm-lifecycle": "^2.0.1",
     "react-google-login": "^5.0.2",
     "react-manager": "^1.0.4",
-    "react-semantic-ui": "^0.2.0"
+    "react-semantic-ui": "^0.2.0",
+    "cryptiles": ">=4.1.2",
+    "mpath": ">=0.5.1"
   },
   "author": "Jozef Maloch",
   "license": "ISC",
