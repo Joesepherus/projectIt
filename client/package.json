@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "npm": "6.2.x"
+    "npm": "8.9.1"
   },
   "proxy": "http://localhost:3001/",
   "homepage": ".",

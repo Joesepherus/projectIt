@@ -4,7 +4,7 @@
   "description": "React Web App about Maths",
   "main": "app.js",
   "engines": {
-    "npm": "6.2.x"
+    "npm": "8.9.1"
   },
   "scripts": {
     "start": "node server.js",
