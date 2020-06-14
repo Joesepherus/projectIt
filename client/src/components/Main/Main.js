@@ -6,6 +6,9 @@ import ProjectDetail from '../projectDetail/ProjectDetail'
 import TasksOrderedByDateController from '../TasksOrderedByDateController/TasksOrderedByDateController'
 import { withStyles } from '@material-ui/core/styles'
 import Login from '../Login/Login'
+import CustomNavbar from '../basic/CustomNavbar/CustomNavbar'
+import { setLoginStatus, redirect, showToast } from '../../global/global'
+import history from '../../history'
 
 const styles = theme => ({
   link: {
@@ -23,15 +26,23 @@ class Main extends Component {
     this.state = {}
   }
 
+  logout = () => {
+    setLoginStatus(false)
+    redirect('/login', history)
+    showToast('Odhlásenie prebehlo úspešne.', 'info')
+  }
+
   render() {
     return (
       <div className="Main">
+        <CustomNavbar logout={this.logout} />
+
         <Switch>
-          <Route exact path="/login" render={props => <Login />} />
+          <Route exact path="/login" render={(props) => <Login />} />
           <Route
             exact
             path="/"
-            render={props => (
+            render={(props) => (
               <HomeController
                 selectedProject={this.props.selectedProject}
                 sections={this.props.sections}
@@ -46,7 +57,7 @@ class Main extends Component {
           <Route
             exact
             path={`/project/:id`}
-            render={props => (
+            render={(props) => (
               <ProjectDetail
                 {...props}
                 project={this.props.selectedProject}
@@ -59,11 +70,7 @@ class Main extends Component {
             )}
           />
 
-          <Route
-            exact
-            path="/results"
-            render={props => <TasksOrderedByDateController />}
-          />
+          <Route exact path="/results" render={(props) => <TasksOrderedByDateController />} />
         </Switch>
       </div>
     )

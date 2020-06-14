@@ -27,6 +27,7 @@ const styles = theme => ({
 })
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class ProjectPreview extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class ProjectPreview extends Component {
     )
   }
 
-  handleClick = e => {
+  handleClick = (e) => {
     const { projectsStore } = this.props
     projectsStore.selectProject(this.props.project)
   }
@@ -61,36 +62,28 @@ class ProjectPreview extends Component {
     let promise = new Promise((resolve, reject) => {
       resolve(projectsStore.deleteProject(this.props.project))
     })
-    promise.then(response => {
-      projectsStore.getProjects()
+    promise.then((response) => {
+      projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
     })
   }
 
   render() {
     const { classes, project } = this.props
+    console.log('project: ', typeof project._id, project._id)
 
     return (
       <Link to={`/project/${project._id}`}>
-        <div
-          className={classes.projectPreview}
-          onClick={this.handleClick.bind(this)}
-        >
+        <div className={classes.projectPreview} onClick={this.handleClick.bind(this)}>
           <Card>
             <Card.Content>
               <h3 className={classes.heading}>{project.title}</h3>
-              <span
-                aria-hidden="true"
-                className={classes.delete}
-                onClick={this.deleteProject.bind(this)}
-              >
+              <span aria-hidden="true" className={classes.delete} onClick={this.deleteProject.bind(this)}>
                 &times;
               </span>
             </Card.Content>
 
             <Card.Content>
-              <div className="sections">
-                {project.sections.length !== 0 ? this.renderSections() : ''}
-              </div>
+              <div className="sections">{project.sections.length !== 0 ? this.renderSections() : ''}</div>
             </Card.Content>
           </Card>
         </div>

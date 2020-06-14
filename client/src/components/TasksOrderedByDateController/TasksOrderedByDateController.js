@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class TasksOrderedByDateController extends Component {
   constructor(props) {
@@ -35,14 +36,8 @@ class TasksOrderedByDateController extends Component {
     for (let i = 0; i < projectsStore.projects.length; i++) {
       for (let j = 0; j < projectsStore.projects[i].sections.length; j++) {
         if (projectsStore.projects[i].sections[j].tasks !== undefined) {
-          for (
-            let k = 0;
-            k < projectsStore.projects[i].sections[j].tasks.length;
-            k++
-          ) {
-            let newTask = Object.assign(
-              this.props.projectsStore.projects[i].sections[j].tasks[k]
-            )
+          for (let k = 0; k < projectsStore.projects[i].sections[j].tasks.length; k++) {
+            let newTask = Object.assign(this.props.projectsStore.projects[i].sections[j].tasks[k])
             newTask.section = projectsStore.projects[i].sections[j]
             projectsStore.setTasks(newTask)
             allTasks.push(projectsStore.projects[i].sections[j].tasks[k])
@@ -89,7 +84,7 @@ class TasksOrderedByDateController extends Component {
     })
   }
 
-  getTodaysTaks = tasks => {
+  getTodaysTaks = (tasks) => {
     const { projectsStore } = this.props
     // #TODO: check the documentation for Date
     if (projectsStore.allTasks.length > 0) {
@@ -97,11 +92,7 @@ class TasksOrderedByDateController extends Component {
       let todaysTasks = []
       let i = 0
       // newTask.section = projectsStore.projects[i].sections[j];
-      while (
-        moment(projectsStore.allTasks[i].completed_date).format(
-          'DD/MM/YYYY'
-        ) === today
-      ) {
+      while (moment(projectsStore.allTasks[i].completed_date).format('DD/MM/YYYY') === today) {
         todaysTasks.push(projectsStore.allTasks[i])
         i++
       }

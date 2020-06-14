@@ -7,6 +7,9 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/client'))
 const fs = require('fs')
 const env = process.env.NODE_ENV || 'development'
+const cors = require('cors')
+app.use(cors());
+
 
 /* user authentication */
 // _____________________________________________________________________________
@@ -67,7 +70,19 @@ app.get('/api/project', function(req, res) {
   })
 })
 
-// display a problem with a certain ID
+// display all projects for an admin with id
+app.get('/api/projectsOfAdmin/:adminId', function(req, res) {
+    console.log('req.params.adminId: ', req.params.adminId);
+  Project.getAllProjectsOfAdmin(req.params.adminId, function(err, allProjects) {
+    if (err) {
+      throw err
+    }
+    console.log(allProjects)
+    res.json(allProjects)
+  })
+})
+
+// display a project with a certain ID
 app.get('/api/project/:id', function(req, res) {
   Project.getProjectById(req.params.id, function(err, project) {
     if (err) {
@@ -80,7 +95,6 @@ app.get('/api/project/:id', function(req, res) {
 // add a new project
 app.post('/api/project', function(req, res) {
   var project = req.body.project
-  console.log(project)
   Project.addProject(project, function(err, project) {
     if (err) {
       throw err
@@ -88,7 +102,7 @@ app.post('/api/project', function(req, res) {
         message: 'something went wrong'
       })
     } else {
-      res.json(project)
+      res.json({project})
     }
   })
 })
@@ -97,8 +111,6 @@ app.post('/api/project', function(req, res) {
 app.put('/api/project/:id', function(req, res) {
   var id = req.params.id
   var project = req.body.project
-  console.log(id)
-  console.log(project)
   Project.updateProject(id, project, {}, function(err, project) {
     if (err) {
       res.send({ message: 'Error', status: 200 })
@@ -113,9 +125,6 @@ app.put('/api/project/:id', function(req, res) {
 app.put('/api/project/removed/:id', function(req, res) {
   var id = req.params.id
   var project = req.body
-  console.log(id)
-
-  console.log(project)
   Project.removeProject(id, project, {}, function(err, project) {
     if (err) {
       throw err
@@ -142,6 +151,119 @@ app.delete('/api/project/deleted/:id', function(req, res) {
     }
   })
 })
+
+// ===== ADMIN =====
+
+Admin = require('./models/admin.js')
+
+// get all admins
+app.get('/api/admin', function (req, res) {
+  Admin.getAllAdmins(function (err, allAdmins) {
+    if (err) {
+      throw err
+    }
+    res.json(allAdmins)
+  })
+})
+
+// get a admin with a certain ID
+app.get('/api/admin/:id', function (req, res) {
+  Admin.getAdminById(req.params.id, function (err, admin) {
+    if (err) {
+      throw err
+    }
+    res.json(admin)
+  })
+})
+
+// add a new admin
+app.post('/api/admin', function (req, res) {
+  var admin = req.body.admin
+  Admin.addAdmin(admin, function (err) {
+    if (err) {
+      res.send({
+        message: 'Admin s emailom ' + admin.email + ' už existuje.',
+        status: 404
+      })
+    } else {
+      res.send({ message: 'Úspešne si sa zaregistroval.', status: 200 })
+    }
+  })
+})
+
+// login admin
+app.post('/api/admin/login', function (req, res) {
+  var admin = req.body.admin
+  console.log(admin)
+  Admin.loginAdmin(admin, function (err, admin_db) {
+    if (err) {
+      res.send({
+        message: 'Zadali ste nesprávne prihlasovacie údaje.',
+        status: 404
+      })
+    } else {
+      res.send({
+        admin_id: admin_db._id,
+        admin: admin_db,
+        message: 'Prihlásenie prebehlo úspešne.',
+        status: 200
+      })
+    }
+  })
+})
+
+// update a admin
+app.put('/api/admin/:id', function (req, res) {
+  var id = req.params.id
+  var admin = req.body.admin
+  Admin.updateAdmin(id, admin, { new: true }, function (err, admin) {
+    if (err) {
+      res.send({ message: 'Error', status: 200 })
+    } else {
+      res.send({
+        message: 'Dáta admina ' + admin.name + ' boli zmenené',
+        status: 200,
+        admin: admin
+      })
+    }
+  })
+})
+
+// change password of a admin
+app.put('/api/admin/changePassword/:id', function (req, res) {
+  var id = req.params.id
+  var admin = req.body.admin
+  Admin.changePassword(id, admin, {}, function (err, db_admin) {
+    console.log('admin: ', db_admin)
+    if (err) {
+      res.send({ message: 'Error nesprávne prihlasovacie údaje.', status: 200 })
+    } else {
+      res.send({
+        message: 'Heslo admina ' + db_admin.name + ' bolo úspešne zmenené.',
+        status: 200
+      })
+    }
+  })
+})
+
+// remove admin permanently
+app.delete('/api/admin/:id', function (req, res) {
+  var id = req.params.id
+  Admin.deletePermanentlyAdmin(id, function (err, admin) {
+    if (err) {
+      res.send({
+        message: 'Nastala chyba pri vymávaní admina.'
+      })
+      throw err
+    } else {
+      res.json({
+        message: 'Váš účet bol úspešne vymazaný.',
+        status: 200
+      })
+    }
+  })
+})
+
 
 // calling server to listen on port
 var server = app.listen(process.env.PORT || 3001, function() {

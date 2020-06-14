@@ -14,6 +14,7 @@ const styles = theme => ({
 })
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class DisplayOneTask extends Component {
   constructor(props) {
@@ -34,11 +35,10 @@ class DisplayOneTask extends Component {
 
   componentDidMount() {
     this.dragImg = new Image(0, 0)
-    this.dragImg.src =
-      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    this.dragImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
   }
 
-  completeTask = e => {
+  completeTask = (e) => {
     const { projectsStore, section } = this.props
     let task = this.state.task
 
@@ -53,7 +53,7 @@ class DisplayOneTask extends Component {
       let response = projectsStore.updateTask(task, section)
       resolve(response)
     })
-    promise.then(response => {})
+    promise.then((response) => {})
   }
 
   handleChange = (type, value) => {
@@ -65,7 +65,7 @@ class DisplayOneTask extends Component {
     // this.props.projectsStore.handleChange(type, e.target.value)
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     const { projectsStore, section } = this.props
     const task = Object.assign({}, this.state.task)
 
@@ -73,17 +73,15 @@ class DisplayOneTask extends Component {
       let promise = new Promise((resolve, reject) => {
         resolve(projectsStore.updateTask(task, section))
       })
-      promise.then(response => {
-        projectsStore.getProjects()
+      promise.then((response) => {
+        projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
       })
     }
   }
 
-  deleteTask = e => {
+  deleteTask = (e) => {
     const { projectsStore, task, section } = this.props
-    projectsStore.setDialog(true, 'delete', '', task, () =>
-      projectsStore.deleteTask(task, section)
-    )
+    projectsStore.setDialog(true, 'delete', '', task, () => projectsStore.deleteTask(task, section))
     // projectsStore.deleteTask(task, section)
   }
 
@@ -93,14 +91,14 @@ class DisplayOneTask extends Component {
   //   })
   // }
 
-  handleOnDragStart = e => {
+  handleOnDragStart = (e) => {
     e.dataTransfer.setDragImage(this.dragImg, 0, 0)
     this.setState({
       startX: e.clientX
     })
   }
 
-  onDrag = e => {
+  onDrag = (e) => {
     let newCheckX = -50 + (e.clientX - this.state.startX)
     let newCheckY = -50 + (this.state.startX - e.clientX)
     if (newCheckX < -100) {
@@ -114,7 +112,7 @@ class DisplayOneTask extends Component {
     // e.dataTransfer.setDragImage(img, 0, 0)
   }
 
-  onDragEnd = e => {
+  onDragEnd = (e) => {
     this.setState({
       checkFull: this.state.checkX >= 0 ? true : false
     })
@@ -125,8 +123,7 @@ class DisplayOneTask extends Component {
       this.deleteTask()
     }
     let myVar = setInterval(() => {
-      if (this.state.checkX <= -50 && this.state.checkY <= -50)
-        clearInterval(myVar)
+      if (this.state.checkX <= -50 && this.state.checkY <= -50) clearInterval(myVar)
       if (this.state.checkX < -50) {
         this.setState({
           checkX: this.state.checkX + 1,
@@ -157,7 +154,7 @@ class DisplayOneTask extends Component {
     this.props.projectsStore.setDialog(type, content, index)
   }
 
-  handlePressedButton = e => {
+  handlePressedButton = (e) => {
     this.handleSubmit()
     this.props.projectsStore.input[this.props.sectionId].focus()
   }
@@ -170,9 +167,9 @@ class DisplayOneTask extends Component {
           marginBottom: 5
         }}
         draggable={true}
-        onDragStart={e => this.handleOnDragStart(e)}
-        onDragOver={e => this.onDrag(e)}
-        onDragEnd={e => this.onDragEnd(e)}
+        onDragStart={(e) => this.handleOnDragStart(e)}
+        onDragOver={(e) => this.onDrag(e)}
+        onDragEnd={(e) => this.onDragEnd(e)}
       >
         <div
           style={{
@@ -209,21 +206,14 @@ class DisplayOneTask extends Component {
             type="text"
             placeholder="title"
             value={this.state.task.title}
-            change={value => this.handleChange('title', value)}
+            change={(value) => this.handleChange('title', value)}
             onBlur={this.handleSubmit.bind(this)}
             onPressButton={this.handlePressedButton}
             disableUnderline
-            styleInput={
-              this.state.task.completed_date !== ''
-                ? 'text greenColor completedText'
-                : 'text blackColor'
-            }
+            styleInput={this.state.task.completed_date !== '' ? 'text greenColor completedText' : 'text blackColor'}
             InputProps={{
               disableUnderline: true,
-              className:
-                this.state.task.completed_date !== ''
-                  ? 'text greenColor completedText'
-                  : 'text blackColor'
+              className: this.state.task.completed_date !== '' ? 'text greenColor completedText' : 'text blackColor'
             }}
           />
         </div>

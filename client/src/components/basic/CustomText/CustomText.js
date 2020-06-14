@@ -17,6 +17,7 @@ class CustomText extends Component {
           ' ' +
           this.props.className
         }
+        style={this.props.style}
         onClick={this.props.onClick}
       >
         {this.props.children}

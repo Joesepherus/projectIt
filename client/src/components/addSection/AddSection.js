@@ -4,6 +4,7 @@ import { Card, Input } from 'semantic-ui-react'
 import { observer, inject } from 'mobx-react'
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class AddSection extends Component {
   constructor(props) {

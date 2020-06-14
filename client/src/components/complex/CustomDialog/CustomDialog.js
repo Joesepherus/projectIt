@@ -16,6 +16,7 @@ import CustomTextField from '../../basic/CustomTextField/CustomTextField'
 import CustomButton from '../../basic/CustomButton'
 
 @inject('projectsStore')
+@inject('store')
 class CustomDialog extends Component {
   constructor(props) {
     super(props)
@@ -87,8 +88,7 @@ class CustomDialog extends Component {
                   // borderRadius: '5px',
                   borderTopLeftRadius: '5px',
                   borderBottomLeftRadius: '5px',
-                  backgroundImage: `url(${'data:image/jpeg;base64,' +
-                    this.state.picture}`,
+                  backgroundImage: `url(${'data:image/jpeg;base64,' + this.state.picture}`,
                   width: '100%',
                   height: '100%',
                   minHeight: '200px',
@@ -105,10 +105,10 @@ class CustomDialog extends Component {
               <CustomIcon size={5} onClick={() => this.imageUpload.click()} />
             )}
             <input
-              ref={ref => (this.imageUpload = ref)}
+              ref={(ref) => (this.imageUpload = ref)}
               type="file"
               style={{ display: 'none' }}
-              onChange={e => this.handleImage(e)}
+              onChange={(e) => this.handleImage(e)}
             />
           </DialogContent>
         )
@@ -129,7 +129,7 @@ class CustomDialog extends Component {
               <CustomTextField
                 multiline
                 className="CustomDialog-TextArea"
-                innerRef={ref => (this.dialogContentRef = ref)}
+                innerRef={(ref) => (this.dialogContentRef = ref)}
               >
                 {content}
               </CustomTextField>
@@ -153,10 +153,7 @@ class CustomDialog extends Component {
     this.setState({
       picture: ''
     })
-    this.props.projectsStore.setDialog(
-      false,
-      this.props.projectsStore.dialogData.type
-    )
+    this.props.projectsStore.setDialog(false, this.props.projectsStore.dialogData.type)
   }
 
   handleClose = () => {
@@ -164,10 +161,7 @@ class CustomDialog extends Component {
     this.setState({
       picture: ''
     })
-    this.props.projectsStore.setDialog(
-      false,
-      this.props.projectsStore.dialogData.type
-    )
+    this.props.projectsStore.setDialog(false, this.props.projectsStore.dialogData.type)
   }
 
   renderDialogActions = () => {
@@ -178,11 +172,7 @@ class CustomDialog extends Component {
         return (
           <DialogActions>
             <div className="actionBtnsContainer">
-              <CustomButton
-                type="text"
-                onClick={this.handleClose}
-                style={{ margin: '0px 10px' }}
-              >
+              <CustomButton type="text" onClick={this.handleClose} style={{ margin: '0px 10px' }}>
                 NO
                 {/* {translate.i18n.GLOBAL.DIALOG.CANCEL} */}
               </CustomButton>

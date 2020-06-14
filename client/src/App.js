@@ -9,6 +9,7 @@ import CustomSnackbar from './components/complex/CustomSnackbar/CustomSnackbar'
 import projectsStore from './stores/projectsStore'
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class App extends Component {
   constructor(props) {
@@ -33,17 +34,17 @@ class App extends Component {
     }
   }
 
-  selectProject = project => {
+  selectProject = (project) => {
     let self = this
     axios
       .put('/api/project/' + project._id, project)
-      .then(function(response) {
+      .then(function (response) {
         self.setState({
           selectedProject: response.data
         })
-        self.props.history.push('/project')
+        self.props.history.push(`/project/${project._id}`)
       })
-      .catch(function(error) {})
+      .catch(function (error) {})
   }
 
   addNewTask = (title, sectionId, taskId) => {
@@ -53,8 +54,8 @@ class App extends Component {
         sectionId: sectionId,
         id: taskId
       })
-      .then(function(response) {})
-      .catch(function(error) {})
+      .then(function (response) {})
+      .catch(function (error) {})
     this.selectProject(this.state.selectedProject)
   }
 
@@ -65,18 +66,18 @@ class App extends Component {
         projectId: projectId,
         id: sectionId
       })
-      .then(function(response) {})
-      .catch(function(error) {})
+      .then(function (response) {})
+      .catch(function (error) {})
     this.selectProject(this.state.selectedProject)
   }
 
-  removeSection = sectionId => {
+  removeSection = (sectionId) => {
     let newProject = Object.assign({}, this.state.selectedProject)
     newProject.sections.plice(sectionId, 1)
     axios
       .put('/api/project/' + this.state.selectedProject._id, newProject)
-      .then(function(response) {})
-      .catch(function(error) {})
+      .then(function (response) {})
+      .catch(function (error) {})
     // this.getAllProjects();
   }
 
@@ -85,16 +86,16 @@ class App extends Component {
     newProject.sections[sectionId].tasks.splice(taskId, 1)
     axios
       .put('/api/project/' + this.state.selectedProject._id, newProject)
-      .then(function(response) {})
-      .catch(function(error) {})
+      .then(function (response) {})
+      .catch(function (error) {})
     // this.getAllProjects();
   }
 
-  completeTask = task => {
+  completeTask = (task) => {
     axios
       .put('/api/task/completed/' + task._id, task)
-      .then(function(response) {})
-      .catch(function(error) {})
+      .then(function (response) {})
+      .catch(function (error) {})
     // this.getAllProjects();
   }
 
@@ -114,7 +115,7 @@ class App extends Component {
           history={this.props.history}
           selectProject={this.selectProject}
         />
-        
+
         <CustomDialog
           open={projectsStore.dialogData.open}
           type={projectsStore.dialogData.type}

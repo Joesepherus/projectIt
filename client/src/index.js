@@ -2,20 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import { Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import history from './history'
 import { Provider } from 'mobx-react'
 import projectsStore from './stores/projectsStore'
+import store from './stores/store'
+import CustomRouter from './Router'
 
 const stores = {
-  projectsStore
+  projectsStore,
+  store,
 }
 
 ReactDOM.render(
   <Provider {...stores}>
-    <Router history={history}>
-      <App history={history} />
-    </Router>
+    <CustomRouter />
   </Provider>,
   document.getElementById('root')
 )

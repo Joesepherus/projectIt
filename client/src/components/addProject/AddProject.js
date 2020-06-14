@@ -4,6 +4,7 @@ import { Card, Input } from 'semantic-ui-react'
 import { inject, observer } from 'mobx-react';
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class AddProject extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class AddProject extends Component {
   }
 
   componentWillUnmount() {
-    const { projectsStore } = this.props;
-    projectsStore.resetInputs();
+    const { projectsStore } = this.props
+    projectsStore.resetInputs()
   }
 
   handleChange = (type, e) => {
@@ -24,15 +25,14 @@ class AddProject extends Component {
   }
 
   handleSubmit(e) {
-    const { projectsStore } = this.props;
-    if (projectsStore.inputs.title !== '' &&
-      projectsStore.inputs.description !== '') {
+    const { projectsStore, store } = this.props
+    if (projectsStore.inputs.title !== '' && projectsStore.inputs.description !== '') {
       let promise = new Promise((resolve, reject) => {
-        resolve(this.props.projectsStore.addProject(projectsStore.inputs));
-      });
+        resolve(this.props.projectsStore.addProject(projectsStore.inputs, store.admin._id))
+      })
       promise.then((response) => {
-        projectsStore.getProjects();
-      });
+        projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
+      })
     }
   }
 
@@ -62,4 +62,4 @@ class AddProject extends Component {
   }
 }
 
-export default AddProject;
+export default inject('store')(observer(AddProject))

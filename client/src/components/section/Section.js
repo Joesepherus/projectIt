@@ -19,6 +19,7 @@ const styles = theme => ({
 })
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class Section extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class Section extends Component {
         resolve(projectsStore.updateSection(section))
       })
       promise.then(response => {
-        projectsStore.getProjects()
+        projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
       })
     }
   }

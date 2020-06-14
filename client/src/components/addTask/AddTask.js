@@ -12,6 +12,7 @@ const styles = theme => ({
 })
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class AddTask extends Component {
   constructor(props) {
@@ -26,14 +27,14 @@ class AddTask extends Component {
     projectsStore.resetInputs()
   }
 
-  handleChange = type => e => {
+  handleChange = (type) => (e) => {
     this.setState({
       [type]: e.target.value
     })
   }
 
   resetInputs = (...inputs) => {
-    inputs.map(input => {
+    inputs.map((input) => {
       this.setState({
         [input]: ''
       })
@@ -58,7 +59,7 @@ class AddTask extends Component {
     this.props.projectsStore.setInput(this.input, this.props.index)
   }
 
-  handlePressedButton = e => {
+  handlePressedButton = (e) => {
     if (e.key === 'Enter') {
       this.handleSubmit()
     }
@@ -76,7 +77,7 @@ class AddTask extends Component {
           onChange={this.handleChange('title')}
           onBlur={this.handleSubmit.bind(this)}
           className={classes.textField}
-          inputRef={input => (this.input = input)}
+          inputRef={(input) => (this.input = input)}
           onKeyPress={this.handlePressedButton}
           InputProps={{
             disableUnderline: true,

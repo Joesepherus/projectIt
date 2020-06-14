@@ -15,20 +15,21 @@
     "test": "cd client && npm run build && cp -a ./build/. ./"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "body-parser": "*",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.4",
+    "cryptiles": ">=4.1.2",
     "express": "*",
     "express-jwt": "^5.3.1",
     "jquery": "^3.4.0",
     "jwks-rsa": "^1.2.1",
     "mongoose": "*",
+    "mpath": ">=0.5.1",
     "npm-lifecycle": "^2.0.1",
     "react-google-login": "^5.0.2",
     "react-manager": "^1.0.4",
-    "react-semantic-ui": "^0.2.0",
-    "cryptiles": ">=4.1.2",
-    "mpath": ">=0.5.1"
+    "react-semantic-ui": "^0.2.0"
   },
   "author": "Jozef Maloch",
   "license": "ISC",

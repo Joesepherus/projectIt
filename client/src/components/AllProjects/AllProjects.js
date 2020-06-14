@@ -5,6 +5,7 @@ import AddProject from "../addProject/AddProject";
 import { inject, observer } from "mobx-react";
 
 @inject("projectsStore")
+@inject("store")
 @observer
 class AllProjects extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class AllProjects extends Component {
 
   componentDidMount() {
     const { projectsStore } = this.props;
-    projectsStore.getProjects();
+    projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
   }
 
   renderProjectList = () => {
@@ -37,12 +38,11 @@ class AllProjects extends Component {
         <AddProject
           addNewProject={this.props.addNewProject}
           projectsLength={this.props.projectsStore.projectLength}
+          history={this.props.history}
         />
       </div>
-    );
+    )
   }
 }
 
-// export default AllProjects
-
-export default AllProjects;
+export default AllProjects

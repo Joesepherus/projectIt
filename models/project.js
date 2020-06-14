@@ -1,8 +1,9 @@
 var mongoose = require("mongoose");
+const Schema = mongoose.Schema
 
-var schema = mongoose.Schema({
-  id: {
-    type: Number
+const ProjectSchema = new Schema({
+  adminId: {
+    type: String
   },
   title: {
     type: String
@@ -28,13 +29,21 @@ var schema = mongoose.Schema({
   removed_date: {
     type: Date
   }
-});
+})
 
-var Project = (module.exports = mongoose.model("Project", schema));
+
+var Project = mongoose.model("Project", ProjectSchema)
+
+module.exports = Project
 
 module.exports.getAllProjects = function(callback, limit) {
-  Project.find(callback).limit(limit);
+  Project.find({}, '_id id title sections description',callback).limit(limit);
 };
+
+module.exports.getAllProjectsOfAdmin = function (adminId, callback, limit) {
+  Project.find({adminId: adminId}, '_id id title sections description', callback).limit(limit)
+}
+
 
 module.exports.getProjectById = function(projectId, callback) {
   Project.findById(projectId, callback);
@@ -42,12 +51,17 @@ module.exports.getProjectById = function(projectId, callback) {
 
 module.exports.addProject = function(project, callback) {
   var json = {
-    id: project.id,
+    adminId: project.adminId,
     title: project.title,
     description: project.description,
-    state: "inprogress"
-  };
-  Project.create(json, callback);
+    state: 'inprogress',
+  }
+  try{
+    Project.create(json, callback);
+  }
+  catch(err){
+    console.log('err', err)
+  }
 };
 
 module.exports.updateProject = function(id, project, options, callback) {

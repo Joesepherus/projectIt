@@ -56,6 +56,7 @@ const styles = theme => ({
 })
 
 @inject('projectsStore')
+@inject('store')
 @observer
 class ProjectDetail extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class ProjectDetail extends Component {
 
   componentDidMount() {
     const { projectsStore, match } = this.props
-    projectsStore.getProjects()
+    projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
     projectsStore.getProject(match.params.id)
   }
 
@@ -119,7 +120,7 @@ class ProjectDetail extends Component {
         resolve(this.props.projectsStore.updateProject(project))
       })
       promise.then(response => {
-        projectsStore.getProjects()
+        projectsStore.getProjectsOfAdmin(this.props.store.admin._id)
       })
     }
   }
