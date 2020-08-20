@@ -15,7 +15,7 @@
     "test": "cd client && npm run build && cp -a ./build/. ./"
   },
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "*",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.4",
