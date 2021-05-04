@@ -49,7 +49,7 @@
     "lodash.mergewith": ">=4.6.2",
     "lodash.template": ">=4.5.0",
     "mem": ">=4.0.0",
-    "merge": ">=1.2.1",
+    "merge": ">=2.1.1",
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.5",
     "moment": "^2.22.2",
