@@ -25,7 +25,7 @@
     "jquery": "^3.4.0",
     "jwks-rsa": "^1.2.1",
     "mongoose": "*",
-    "mpath": ">=0.5.1",
+    "mpath": ">=0.8.4",
     "npm-lifecycle": "^2.0.1",
     "react-google-login": "^5.0.2",
     "react-manager": "^1.0.4",
