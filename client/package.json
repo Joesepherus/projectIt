@@ -52,7 +52,7 @@
     "merge": ">=1.2.1",
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "mpath": ">=0.5.1",
     "node-sass-chokidar": "^1.4.0",
     "npm-run-all": "^4.1.3",
